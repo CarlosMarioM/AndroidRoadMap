@@ -1,0 +1,16 @@
+com.example.androidroadmap.topics
+id broadcast_status_text
+id fragment_container
+id host_fragment_status_text
+id lifecycle_counter_text
+id lifecycle_increment_button
+id picker_fragment_title
+id picker_select_option_a_button
+id picker_select_option_b_button
+id send_airplane_mode_button
+id send_custom_event_button
+layout activity_broadcast_receiver_example
+layout activity_lifecycle_example
+layout fragment_host
+layout fragment_picker
+string activity_lifecycle_example

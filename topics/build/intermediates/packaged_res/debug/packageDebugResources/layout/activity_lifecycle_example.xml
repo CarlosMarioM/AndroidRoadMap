@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Top content group -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_lifecycle_example"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp" />
+        <!-- Spacer (equivalent to Spacer(weight = 1f)) -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="229dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/lifecycle_counter_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Counter: 0"
+            android:layout_gravity="center"
+            android:textSize="32sp" />
+    </LinearLayout>
+
+    <!-- Spacer (equivalent to Spacer(weight = 1f)) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="223dp"
+        android:layout_weight="1" />
+
+    <!-- Bottom button -->
+    <Button
+        android:id="@+id/lifecycle_increment_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Increment Counter" />
+    <!-- Spacer (equivalent to Spacer(weight = 1f)) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

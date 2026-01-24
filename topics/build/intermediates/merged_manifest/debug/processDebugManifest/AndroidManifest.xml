@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.androidroadmap.topics" >
+
+    <uses-sdk android:minSdkVersion="24" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application>
+        <activity
+            android:name="a_phase.c_Android_Core_Components.a_Activities.examples.MyActivity"
+            android:exported="false"
+            android:label="Activity Lifecycle Example" />
+        <activity
+            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyActivity"
+            android:exported="false"
+            android:label="Broadcast Receiver Example" />
+
+        <receiver
+            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyBroadcastReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

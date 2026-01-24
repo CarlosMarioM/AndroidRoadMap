@@ -1,0 +1,55 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:2:1-28:12
+	package
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:3:5-48
+		INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:5-81
+	android:name
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:22-78
+application
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:7:5-26:19
+activity#a_phase.c_Android_Core_Components.a_Activities.examples.MyActivity
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:8:9-11:58
+	android:label
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:11:13-55
+	android:exported
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:10:13-37
+	android:name
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:9:13-94
+activity#a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyActivity
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:13:9-16:58
+	android:label
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:16:13-55
+	android:exported
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:14:13-102
+receiver#a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyBroadcastReceiver
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:18:9-25:20
+	android:exported
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:20:13-36
+	android:name
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:19:13-111
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+category:name:android.intent.category.DEFAULT
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:21:13-24:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:17-79
+	android:name
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:25-76
+category#android.intent.category.DEFAULT
+ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:17-76
+	android:name
+		ADDED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:27-73
+uses-sdk
+INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml
+INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml

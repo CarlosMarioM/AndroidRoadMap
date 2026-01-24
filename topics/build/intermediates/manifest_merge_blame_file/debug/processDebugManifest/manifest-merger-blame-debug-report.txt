@@ -1,0 +1,49 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.androidroadmap.topics" >
+4
+5    <uses-sdk android:minSdkVersion="24" />
+6
+7    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+7-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:5-81
+7-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:22-78
+8
+9    <application>
+9-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:7:5-26:19
+10        <activity
+10-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:8:9-11:58
+11            android:name="a_phase.c_Android_Core_Components.a_Activities.examples.MyActivity"
+11-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:9:13-94
+12            android:exported="false"
+12-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:10:13-37
+13            android:label="Activity Lifecycle Example" />
+13-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:11:13-55
+14        <activity
+14-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:13:9-16:58
+15            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyActivity"
+15-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:14:13-102
+16            android:exported="false"
+16-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:15:13-37
+17            android:label="Broadcast Receiver Example" />
+17-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:16:13-55
+18
+19        <receiver
+19-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:18:9-25:20
+20            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyBroadcastReceiver"
+20-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:19:13-111
+21            android:exported="true" >
+21-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:20:13-36
+22            <intent-filter>
+22-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:21:13-24:29
+23                <action android:name="android.intent.action.BOOT_COMPLETED" />
+23-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:17-79
+23-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:25-76
+24
+25                <category android:name="android.intent.category.DEFAULT" />
+25-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:17-76
+25-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:27-73
+26            </intent-filter>
+27        </receiver>
+28    </application>
+29
+30</manifest>
