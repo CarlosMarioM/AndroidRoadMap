@@ -8,6 +8,7 @@ pluginManagement {
             }
         }
         mavenCentral()
+        maven("https://oss.sonatype.org/content/repositories/snapshots/")
         gradlePluginPortal()
     }
 }
@@ -21,7 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidRoadMap"
 include(":app")
-include(":domain")
 include(":data")
+include(":domain")
 include(":topics")
- 

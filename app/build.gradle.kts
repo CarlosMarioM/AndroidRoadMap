@@ -56,4 +56,5 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     debugImplementation(libs.androidx.ui.tooling)
+    implementation("io.noties.markwon:core:4.6.2")
 }

@@ -1,10 +1,10 @@
 package com.example.androidroadmap.features.topics
 
+import MarkdownScreen
 import com.example.androidroadmap.model.TopicId
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.androidroadmap.features.markdown.ui.MarkdownScreen
 import com.example.androidroadmap.features.markdown.utils.TopicsMarkdownUtil
 
 class TopicsActivity : ComponentActivity() {
