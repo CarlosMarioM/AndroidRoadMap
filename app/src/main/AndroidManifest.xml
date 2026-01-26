@@ -22,6 +22,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".features.home.HomeActivity"
+            android:exported="true"
+            android:label="HomeActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
             android:name=".features.index.IndexActivity"
             android:exported="true"
             android:label="IndexActivity"

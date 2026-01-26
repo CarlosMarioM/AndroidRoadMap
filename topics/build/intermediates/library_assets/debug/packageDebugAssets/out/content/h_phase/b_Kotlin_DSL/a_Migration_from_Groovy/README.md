@@ -1,338 +1,163 @@
 # Kotlin DSL Migration from Groovy (Gradle)
 
-Migrating from Groovy DSL (build.gradle) to Kotlin DSL (build.gradle.kts) is not about fashion or syntax preference.
-It’s about type safety, tooling, and long-term maintainability.
+## Overview
 
-This document explains why, when, and how to migrate — and the traps that will waste your time if you don’t know them upfront.
+Migrating from **Groovy DSL (`build.gradle`)** to **Kotlin DSL (`build.gradle.kts`)** is not cosmetic.
+It is a shift from dynamic scripting to **typed, compile-time safe build logic**.
 
-## Why Kotlin DSL exists (real reasons)
+---
 
-Groovy DSL problems:
+## Why Migrate
 
-- Dynamic typing → errors appear at runtime
+Groovy DSL:
+- Dynamic typing
+- Runtime errors
+- Weak IDE support
+- String-based configuration
 
-- IDE autocomplete is unreliable
-
-- Refactoring is dangerous
-
-- Hard to discover APIs
-
-- Silent failures due to string-based configuration
-
-Kotlin DSL fixes this by:
-
-- Compile-time validation
-
-- Full IDE support (autocomplete, refactor, navigation)
-
+Kotlin DSL:
+- Compile-time safety
+- Strong autocomplete
+- Refactor-safe
 - Discoverable APIs
 
-- Safer builds at scale
+---
 
-Trade-off: Kotlin DSL is stricter and less forgiving. That’s a feature, not a bug.
+## Migration Strategy
 
-### When migration makes sense
+### Recommended Order
 
-Good candidates:
+1. `settings.gradle` → `settings.gradle.kts`
+2. Root `build.gradle` → `build.gradle.kts`
+3. Version Catalogs (`libs.versions.toml`)
+4. Module build files
+5. Custom scripts
 
-- Medium to large Android projects
+---
 
-- Long-lived codebases
+## File Renaming
 
-- Teams with Kotlin experience
+| Groovy | Kotlin DSL |
+|------|-----------|
+| build.gradle | build.gradle.kts |
+| settings.gradle | settings.gradle.kts |
+| init.gradle | init.gradle.kts |
 
-- CI-heavy environments
+---
 
-- Projects using version catalogs
+## Syntax Differences
 
-Bad candidates:
-
-- Small throwaway projects
-
-- Teams unfamiliar with Kotlin
-
-- Legacy builds with heavy Groovy metaprogramming
-
-### File mapping
-Groovy	Kotlin DSL
-build.gradle	build.gradle.kts
-settings.gradle	settings.gradle.kts
-init.gradle	init.gradle.kts
-
-You cannot mix syntax in the same file.
-
-### Syntax fundamentals
-Variables
+### Method Calls
 
 Groovy:
-
-def minSdk = 24
-
-
-Kotlin DSL:
-
-val minSdk = 24
-
-
-No def. Ever.
-
-Strings
-
-Groovy:
-
-applicationId "com.example.app"
-
-
-Kotlin DSL:
-
-applicationId = "com.example.app"
-
-
-Assignment is explicit.
-
-Method calls vs assignments
-
-Groovy:
-
+```groovy
 compileSdkVersion 34
+```
 
-
-Kotlin DSL:
-
+Kotlin:
+```kotlin
 compileSdk = 34
+```
 
+---
 
-If autocomplete doesn’t show it, you’re probably using Groovy syntax by mistake.
-
-Plugins block
+### Strings
 
 Groovy:
+```groovy
+applicationId "com.example.app"
+```
 
+Kotlin:
+```kotlin
+applicationId = "com.example.app"
+```
+
+---
+
+## Plugins Block
+
+Groovy:
+```groovy
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+```
 
-
-Kotlin DSL:
-
+Kotlin:
+```kotlin
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+```
 
+---
 
-With versions:
-
-plugins {
-    id("com.android.application") version "8.3.0" apply false
-}
-
-Android block migration
+## Android Block
 
 Groovy:
-
+```groovy
 android {
     compileSdkVersion 34
-
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 34
     }
 }
+```
 
-
-Kotlin DSL:
-
+Kotlin:
+```kotlin
 android {
     compileSdk = 34
-
     defaultConfig {
         minSdk = 24
         targetSdk = 34
     }
 }
+```
 
+---
 
-Notice:
-
-No Version suffix
-
-Properties, not functions
-
-Dependencies block
+## Dependencies
 
 Groovy:
-
+```groovy
 dependencies {
-    implementation "androidx.core:core-ktx:1.12.0"
+    implementation 'androidx.core:core-ktx:1.12.0'
 }
+```
 
-
-Kotlin DSL:
-
+Kotlin:
+```kotlin
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
 }
+```
 
+---
 
-With version catalog:
-
-dependencies {
-    implementation(libs.androidx.core.ktx)
-}
-
-Accessing extra properties
+## Tasks
 
 Groovy:
-
-ext {
-    versionName = "1.0"
-}
-
-
-Kotlin DSL (bad, avoid):
-
-extra["versionName"] = "1.0"
-
-
-Kotlin DSL (recommended):
-
-Use Version Catalogs
-
-Or buildSrc
-
-Or convention plugins
-
-Tasks configuration
-
-Groovy:
-
+```groovy
 tasks.withType(Test) {
     useJUnitPlatform()
 }
+```
 
-
-Kotlin DSL:
-
+Kotlin:
+```kotlin
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+```
 
+---
 
-Typed APIs are mandatory.
+## Final Notes
 
-Custom tasks
-
-Groovy:
-
-task cleanTmp(type: Delete) {
-    delete "tmp"
-}
-
-
-Kotlin DSL:
-
-tasks.register<Delete>("cleanTmp") {
-    delete("tmp")
-}
-
-
-Lazy configuration is not optional in Kotlin DSL.
-
-Common migration pain points (read this twice)
-1. Groovy magic does not exist
-
-No implicit getters, setters, or closures.
-
-2. Strings are not config
-
-If something is red, it’s broken — fix it, don’t workaround it.
-
-3. Order matters more
-
-Kotlin DSL is compiled. Missing references fail fast.
-
-4. StackOverflow snippets will lie to you
-
-Most examples are Groovy. Translate mentally or ignore.
-
-Version Catalogs + Kotlin DSL (best combo)
-
-Kotlin DSL shines with libs.versions.toml.
-
-Example:
-
-[versions]
-kotlin = "1.9.22"
-
-[libraries]
-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-
-
-Usage:
-
-dependencies {
-    implementation(libs.kotlin.stdlib)
-}
-
-
-This is the correct modern setup.
-
-Migration strategy (do NOT big-bang)
-
-Migrate settings.gradle → settings.gradle.kts
-
-Introduce version catalogs
-
-Migrate root build.gradle
-
-Migrate one module at a time
-
-Kill ext {} blocks
-
-Introduce convention plugins if needed
-
-Performance considerations
-
-Reality check:
-
-Kotlin DSL is slightly slower on first build
-
-Negligible difference after configuration cache
-
-Worth it for correctness alone
-
-When Kotlin DSL hurts
-
-Be honest:
-
-Writing custom Gradle logic is more verbose
-
-Error messages are longer
-
-You must understand Gradle APIs
-
-If that scares you, Groovy is already hurting you — just silently.
-
-Bottom line
-
-Kotlin DSL is:
-
-Stricter
-
-Safer
-
-More maintainable
-
-Better for teams and CI
-
-Groovy DSL is:
-
-Faster to write
-
-Easier to abuse
-
-Harder to maintain at scale
-
-For senior Android projects, Kotlin DSL is the correct choice.
+Kotlin DSL is stricter by design.
+That strictness is the value.

@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp) // Apply the KSP plugin
+    alias(libs.plugins.hilt) // Apply the Hilt Android plugin
 }
 
 android {
-    namespace = "com.example.androidroadmap.data" 
+    namespace = "com.example.androidroadmap.data"
     compileSdk = 36
 
     defaultConfig {
@@ -33,7 +35,14 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(libs.androidx.appcompat)
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation(libs.androidx.core.ktx)
 
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler) // Use ksp for Room compiler
 
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler) // Use ksp for Hilt compiler
 }

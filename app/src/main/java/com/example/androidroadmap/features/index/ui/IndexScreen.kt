@@ -45,9 +45,14 @@ import androidx.compose.ui.unit.sp
 import com.example.androidroadmap.features.index.IndexActivity
 import com.example.androidroadmap.features.markdown.MarkdownActivity
 import com.example.androidroadmap.model.TopicId
+import com.example.androidroadmap.theme.BackgroundDark
+import com.example.androidroadmap.theme.CardSurface
 import com.example.androidroadmap.theme.OrangeAccent
 import com.example.androidroadmap.theme.PurpleAccent
 import com.example.androidroadmap.theme.TealAccent
+import com.example.androidroadmap.theme.TextPrimary
+import com.example.androidroadmap.theme.TextSecondary
+import com.example.androidroadmap.ui.card.CardItem
 
 @Preview
 @Composable
@@ -77,21 +82,21 @@ fun IndexScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF1E1F22)) // Dark Background
+                .background(BackgroundDark) // Dark Background
                 .padding(16.dp)
                 .padding(innerPadding)
         ) {
             // 1. Header Section
             Text(
                 text = "Index.kt",
-                color = Color.White,
+                color = TextPrimary,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace // <--- The "Code" Look
             )
             Text(
                 text = "Project Structure & Topics",
-                color = Color(0xFF707277),
+                color = TextSecondary,
                 fontSize = 16.sp,
                 fontFamily = FontFamily.Monospace,
                 modifier = Modifier.padding(bottom = 24.dp)
@@ -119,70 +124,11 @@ fun IndexScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 itemsIndexed(topics) { index, topic ->
-                    TopicCard(index, topic, onTopicClick )
+                    CardItem(index = index, title = topic.title, onClick = { onTopicClick(topic) })
                 }
             }
         }
     }
 }
 
-@Composable
-fun TopicCard(index : Int, topic: Topic,  onClick: (Topic) -> Unit) {
-    // Cycle through colors based on index to get that colorful list
-    val accentColor = when (index % 3) {
-        1 -> PurpleAccent // Purple
-        2 -> TealAccent // Teal
-        else -> OrangeAccent// Orange
-    }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(80.dp) // Fixed height for consistency
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color(0xFF2B2D30))
-            .clickable { onClick.invoke(topic) }, // Card Surface
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // A. The Colored "Glow" Strip on the left
-        Box(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(6.dp)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(accentColor, accentColor.copy(alpha = 0.3f))
-                    )
-                )
-        )
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        // B. The Line Number (01, 02, etc.)
-
-        Text(
-            text = String.format("%02d", index),
-            color = Color(0xFF505257),
-            fontFamily = FontFamily.Monospace,
-            fontSize = 14.sp
-        )
-
-        Spacer(modifier = Modifier.width(6.dp))
-
-        VerticalDivider(
-            color = Color.Gray,
-            modifier = Modifier
-            .height(60.dp))
-
-        Spacer(modifier = Modifier.width(12.dp))
-        // C. The Topic Title
-        Text(
-            text = topic.title,
-            color = Color(0xFFBCBEC4),
-            fontFamily = FontFamily.Monospace, // IMPORTANT for the look
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.weight(1f)
-        )
-    }
-}

@@ -22,7 +22,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androidroadmap.features.home.HomeActivity
 import com.example.androidroadmap.features.index.IndexActivity
+import com.example.androidroadmap.theme.BackgroundDark
+import com.example.androidroadmap.theme.TextPrimary
+import com.example.androidroadmap.theme.TextSecondary
 
 
 @Composable
@@ -35,7 +39,7 @@ fun LandingScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFF1E1F22)) // Dark Background
+                .background(BackgroundDark) // Dark Background
                 .padding(16.dp)
                 .padding(innerPadding),
             verticalArrangement = Arrangement.SpaceAround
@@ -46,7 +50,7 @@ fun LandingScreen(
                 Text(
                     text = "Welcome to",
                     style = MaterialTheme.typography.titleMedium,
-                    color = Color(0xFF707277),
+                    color = TextSecondary,
                     fontSize = 16.sp,
                     fontFamily = FontFamily.Monospace,
                     modifier = Modifier.padding(bottom = 24.dp)
@@ -54,7 +58,7 @@ fun LandingScreen(
                 Text(
                     text = appName,
                     style = MaterialTheme.typography.displayMedium,
-                    color = Color.White,
+                    color = TextPrimary,
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace
@@ -68,7 +72,7 @@ fun LandingScreen(
                 Text(
                     text = "Ready to begin your Android journey?",
                     style = MaterialTheme.typography.labelLarge,
-                    color = Color(0xFF707277),
+                    color = TextSecondary,
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Thin,
                     fontFamily = FontFamily.Monospace
@@ -80,7 +84,7 @@ fun LandingScreen(
             // CTA
             Button(
                 onClick = {
-                    context.startActivity(Intent(context, IndexActivity::class.java))
+                    context.startActivity(Intent(context, HomeActivity::class.java))
                 },
                 modifier = Modifier
                     .fillMaxWidth()
