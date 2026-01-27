@@ -1,267 +1,203 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# BiometricPrompt on Android
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+Biometrics are **UX for key access**, not magic security.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+If you think biometrics "protect your data", you already misunderstand the model.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## What BiometricPrompt Actually Does
 
-Kotlin DSL does **not**.
+BiometricPrompt:
+- Authenticates **the user**, not the device
+- Gates access to **Keystore keys**
+- Delegates trust to secure hardware when available
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+It does **NOT**:
+- Encrypt your data by itself
+- Replace passwords
+- Stop a rooted or hooked device
 
----
-
-## Where type-safe accessors apply
-
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+Biometrics unlock keys — nothing more.
 
 ---
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
+## Supported Authentication Methods
 
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
+Depending on Android version and device:
 
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+- Fingerprint
+- Face
+- Iris (legacy)
+- Device credential (PIN / Pattern / Password)
+
+You **must** define acceptable authenticators explicitly.
 
 ---
 
-## Project accessors (multi-module)
+## The Correct Mental Model
 
-### settings.gradle.kts
-```kotlin
-rootProject.name = "MyApp"
+Think of it as:
 
-include(":core")
-include(":feature:login")
-include(":feature:profile")
-```
+> "Allow this Keystore key to be used **only after user authentication**"
 
-### Usage
-```kotlin
-dependencies {
-    implementation(projects.core)
-    implementation(projects.feature.login)
-}
-```
-
-No strings. Fully safe.
+If you are not using Keystore keys, BiometricPrompt adds **zero real security**.
 
 ---
 
-## Configuration accessors
+## Correct Use Cases
 
-### Groovy (old)
-```groovy
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-}
-```
+BiometricPrompt is appropriate for:
 
-### Kotlin DSL
-```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-}
-```
+- Unlocking encrypted local data
+- Approving sensitive actions
+- Protecting private keys
+- Re-authentication after timeout
 
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
+It is NOT appropriate for:
 
-Misspell it → compile error.
+- Login replacement without backend verification
+- Long-term session security
+- Protecting API keys embedded in the app
 
 ---
 
-## Task accessors
+## Biometric + Keystore (The Only Correct Pattern)
 
-### Unsafe
-```kotlin
-tasks.getByName("assembleRelease")
-```
+### Key Generation Rules
 
-### Safe
-```kotlin
-tasks.named("assembleRelease")
-```
+When creating a key:
 
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
+- Set `setUserAuthenticationRequired(true)`
+- Define authentication validity window or per-use
+- Prefer **StrongBox** if available
 
-If the task doesn’t exist → build fails immediately.
+This binds the key to:
+- User presence
+- Secure hardware (when supported)
 
 ---
 
-## Extension accessors
+## Authentication Validity Window
 
-### Android plugin example
-```kotlin
-android {
-    compileSdk = 34
-}
-```
+You must choose:
 
-`android` is a generated accessor from the Android Gradle Plugin.
+- **Per-use authentication** (most secure)
+- **Time-based window** (better UX)
 
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
+Trade-off:
+- Short window = more prompts
+- Long window = weaker protection
 
-If the plugin isn’t applied → accessor doesn’t exist.
+Never leave this undefined.
 
 ---
 
-## Version Catalog type-safe accessors
+## BiometricPrompt Flow (Correct)
 
-### libs.versions.toml
-```toml
-[libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
-```
+1. App requests crypto operation
+2. System shows biometric UI
+3. User authenticates
+4. Keystore allows key usage
+5. Crypto operation proceeds
 
-### Usage
-```kotlin
-dependencies {
-    implementation(libs.coroutines.core)
-}
-```
-
-Generated structure:
-```
-libs.coroutines.core
-```
-
-Rename in TOML → compiler tells you everywhere it breaks.
+The app **never sees biometric data**.
 
 ---
 
-## Plugin accessors
+## Failure Modes You Must Handle
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
-```
+Common failures:
 
-### Usage
-```kotlin
-plugins {
-    alias(libs.plugins.android.application)
-}
-```
+- Biometric lockout
+- Hardware unavailable
+- No biometrics enrolled
+- User cancels
 
-This is the **cleanest possible Gradle setup** today.
+Always:
+- Provide device credential fallback
+- Explain failure clearly
+
+No fallback = broken UX.
 
 ---
 
-## Common pitfalls (real-world)
+## Security Limitations (Be Honest)
 
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
+Biometrics do NOT protect against:
 
-Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
-```
+- Runtime memory access
+- Hooking frameworks
+- Compromised OS
 
-### ❌ Slow sync
-Cause:
-- Accessor regeneration
-- Huge version catalogs
+They protect against:
 
-Fix:
-- Enable configuration cache
-- Reduce dynamic includes
+- Casual access
+- Lost device scenarios
+- Shoulder surfing
 
 ---
 
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
+## Anti-Patterns (Do Not Do This)
 
-For large projects, this is **always worth it**.
+- Using biometrics without Keystore
+- Storing secrets after auth without encryption
+- Treating biometric success as login
+- Rolling your own biometric UI
 
----
-
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
-
-In those cases, explicit APIs are clearer.
+These are rookie mistakes.
 
 ---
 
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
+## BiometricPrompt + NDK
 
-You are choosing **fragility over correctness**.
+Native code can:
+- Trigger biometric-gated key usage
+- Perform crypto after auth
 
-Type-safe accessors are not optional anymore.
-They are table stakes.
+But:
+- Auth decision stays in Java/Kotlin
+- Native code must never decide trust
 
----
-
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
+If native code decides auth, security is fake.
 
 ---
 
-End of document.
+## Debugging & Testing
+
+You must test:
+
+- Fresh install
+- No biometrics enrolled
+- Lockout scenarios
+- Device credential fallback
+- API level differences
+
+Emulators lie. Test real devices.
+
+---
+
+## Senior Rules (Non-Negotiable)
+
+- Biometrics gate keys, not data
+- Always use Keystore
+- Always define fallback
+- Never trust biometric success alone
+- Treat UX and security separately
+
+Break any of these and your design is flawed.
+
+---
+
+## What Comes Next
+
+Logical continuations:
+
+- Keystore internals & StrongBox
+- Secure session re-auth flows
+- Anti-tampering techniques
+- Reverse-engineering biometric flows
+- Threat modeling biometric apps
+
+Pick the next layer.
+

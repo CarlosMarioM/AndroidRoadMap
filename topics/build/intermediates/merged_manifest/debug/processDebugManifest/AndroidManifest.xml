@@ -5,6 +5,7 @@
     <uses-sdk android:minSdkVersion="24" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application>
         <activity
@@ -25,6 +26,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="a_phase.d_Android_Manifest_and_App_Configuration.a_Permissions.examples.PermissionsExampleActivity"
+            android:exported="true"
+            android:label="Permissions Example" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

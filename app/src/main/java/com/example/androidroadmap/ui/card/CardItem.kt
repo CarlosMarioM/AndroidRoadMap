@@ -22,12 +22,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androidroadmap.theme.CardSurface
-import com.example.androidroadmap.theme.OrangeAccent
-import com.example.androidroadmap.theme.PurpleAccent
-import com.example.androidroadmap.theme.TealAccent
-import com.example.androidroadmap.theme.TextPrimary
-import com.example.androidroadmap.theme.TextSecondary
+import com.example.androidroadmap.ui.theme.CardSurface
+import com.example.androidroadmap.ui.theme.OrangeAccent
+import com.example.androidroadmap.ui.theme.PurpleAccent
+import com.example.androidroadmap.ui.theme.TealAccent
+import com.example.androidroadmap.ui.theme.TextPrimary
+import com.example.androidroadmap.ui.theme.TextSecondary
 
 @Composable
 fun CardItem(index : Int, title : String, onClick: () -> Unit) {

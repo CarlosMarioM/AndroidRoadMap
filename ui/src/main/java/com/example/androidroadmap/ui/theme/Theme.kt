@@ -1,19 +1,14 @@
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.navigation.compose.rememberNavController
-import com.example.androidroadmap.features.landing.LandingScreen
-import com.example.androidroadmap.theme.OrangeAccent
-import com.example.androidroadmap.theme.PurpleAccent
-import com.example.androidroadmap.theme.TealAccent
+import com.example.androidroadmap.ui.theme.OrangeAccent
+import com.example.androidroadmap.ui.theme.PurpleAccent
+import com.example.androidroadmap.ui.theme.TealAccent
 
 @Composable
-fun RoadMapAppTheme() {
-    val navController = rememberNavController()
+fun RoadMapAppTheme( view : @Composable () -> Unit = {}) {
     MaterialTheme (
         colorScheme = MaterialTheme
             .colorScheme.copy(
@@ -26,9 +21,7 @@ fun RoadMapAppTheme() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            LandingScreen(
-                appName = "AndroidRoadMap.kt",
-            )
+            view()
         }
     }
 }

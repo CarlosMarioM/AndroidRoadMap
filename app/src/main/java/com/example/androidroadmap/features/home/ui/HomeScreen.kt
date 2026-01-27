@@ -2,12 +2,7 @@ package com.example.androidroadmap.features.home.ui
 
 import android.content.Intent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowColumn
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,10 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidroadmap.features.index.IndexActivity
-import com.example.androidroadmap.theme.BackgroundDark
-import com.example.androidroadmap.theme.TealAccent
-import com.example.androidroadmap.theme.TextPrimary
-import com.example.androidroadmap.theme.TextSecondary
+import com.example.androidroadmap.ui.theme.BackgroundDark
+import com.example.androidroadmap.ui.theme.TextPrimary
+import com.example.androidroadmap.ui.theme.TextSecondary
 import com.example.androidroadmap.ui.card.CardItem
 
 private data class Route(val index : Int, val title : String, val onClick : () -> Unit)

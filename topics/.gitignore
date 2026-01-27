@@ -1,0 +1,44 @@
+# Built objects and packages
+bin/
+gen/
+obj/
+/build/
+*.apk
+*.aar
+*.ap_
+*.dex
+
+# Android Studio / IntelliJ
+*.iml
+.idea/
+!.idea/codeStyles/
+!.idea/copyright/
+!.idea/vcs.xml
+!.idea/inspectionProfiles/
+# Ignore specific workspace files that change constantly
+.idea/workspace.xml
+.idea/libraries
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+
+# Gradle
+.gradle/
+local.properties
+.externalNativeBuild
+.cxx/
+build/
+
+# Captures and logs
+/captures/
+*.head
+*.hprof
+*.stacktrace
+
+# OS related
+.DS_Store
+Thumbs.db
+
+# Optional: Firebase/Google Services
+google-services.json

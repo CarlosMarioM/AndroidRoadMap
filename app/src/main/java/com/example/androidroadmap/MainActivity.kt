@@ -4,8 +4,7 @@ import RoadMapAppTheme
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.androidroadmap.features.landing.LandingScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -13,13 +12,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            RoadMapAppTheme()
+            RoadMapAppTheme (view = {
+                LandingScreen(
+                    appName = "AndroidRoadMap.kt",
+                )
+            })
         }
     }
-}
-
-@Preview
-@Composable
-fun InitialPagePreview() {
-    RoadMapAppTheme()
 }

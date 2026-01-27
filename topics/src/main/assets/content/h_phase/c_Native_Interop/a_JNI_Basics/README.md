@@ -1,267 +1,288 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# JNI Basics for Android (Kotlin / C / C++)
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+> JNI (Java Native Interface) is **not magic**, **not fast by default**, and **not something you use casually**.
+> This document explains **what JNI really is**, **how it works**, and **how to use it correctly** in Android projects — without folklore or fear.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+This is senior-level groundwork. If you plan to touch **NDK, FFI, emulators, DSP, crypto, or performance-critical code**, you need this.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## What JNI Actually Is (No Myths)
 
-Kotlin DSL does **not**.
+JNI is a **bridge** between:
+- Managed world: **Kotlin / Java (ART, GC, objects)**
+- Native world: **C / C++ (manual memory, raw pointers)**
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+JNI does NOT:
+- Make code automatically faster
+- Replace Kotlin/Java
+- Protect you from crashes
 
----
+JNI DOES:
+- Allow calling native code from JVM
+- Allow native code to call back into JVM
+- Give you access to low-level APIs
 
-## Where type-safe accessors apply
-
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+One mistake = process crash. No stacktrace mercy.
 
 ---
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
+## When JNI Is Actually Worth Using
 
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
+Use JNI only if you need:
+- Heavy computation (DSP, image processing, emulation)
+- Existing C/C++ libraries
+- Low-level OS or hardware access
+- Deterministic performance (no GC pauses)
 
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+Do NOT use JNI for:
+- Business logic
+- Networking
+- JSON parsing
+- Anything you can do cleanly in Kotlin
+
+JNI is a **scalpel**, not a hammer.
 
 ---
 
-## Project accessors (multi-module)
+## High-level Architecture
 
-### settings.gradle.kts
+```text
+Kotlin / Java
+   ↓ (JNI call)
+JNI layer (glue code)
+   ↓
+C / C++ implementation
+```
+
+The JNI layer should be **thin**.
+If your JNI files are big, you already messed up.
+
+---
+
+## Android NDK Basics
+
+Android does NOT run C/C++ directly.
+You compile native code into `.so` libraries using the **NDK**.
+
+Typical structure:
+```text
+app
+└── src/main
+    ├── cpp
+    │   ├── native-lib.cpp
+    │   └── CMakeLists.txt
+    └── java/com/example/nativebridge
+```
+
+Gradle loads `.so` files at runtime.
+
+---
+
+## Declaring a Native Function (Kotlin)
+
 ```kotlin
-rootProject.name = "MyApp"
+object NativeBridge {
+    init {
+        System.loadLibrary("native-lib")
+    }
 
-include(":core")
-include(":feature:login")
-include(":feature:profile")
-```
-
-### Usage
-```kotlin
-dependencies {
-    implementation(projects.core)
-    implementation(projects.feature.login)
+    external fun add(a: Int, b: Int): Int
 }
 ```
 
-No strings. Fully safe.
+Key points:
+- `external` means implementation lives in native code
+- Library name must match the compiled `.so`
 
 ---
 
-## Configuration accessors
+## Implementing the Native Function (C++)
 
-### Groovy (old)
-```groovy
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+```cpp
+#include <jni.h>
+
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_example_nativebridge_NativeBridge_add(
+        JNIEnv* env,
+        jobject /* this */,
+        jint a,
+        jint b
+) {
+    return a + b;
 }
 ```
 
-### Kotlin DSL
-```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+Yes, the name is ugly. That’s JNI.
+
+---
+
+## Naming Rules (Why People Hate JNI)
+
+Function name pattern:
+```text
+Java_<package>_<class>_<method>
+```
+
+Dots → underscores
+Nested classes → `_00024`
+
+Mistype it → **UnsatisfiedLinkError at runtime**.
+
+---
+
+## Using JNI_OnLoad (IMPORTANT)
+
+This runs when the library is loaded.
+
+```cpp
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
+    JNIEnv* env = nullptr;
+    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
+        return JNI_ERR;
+    }
+    return JNI_VERSION_1_6;
 }
 ```
 
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
-
-Misspell it → compile error.
+Use this to:
+- Cache class references
+- Register native methods
+- Fail fast if setup is wrong
 
 ---
 
-## Task accessors
+## Registering Native Methods (Avoid name hell)
 
-### Unsafe
-```kotlin
-tasks.getByName("assembleRelease")
+Better approach than long method names:
+
+```cpp
+static JNINativeMethod methods[] = {
+    {"add", "(II)I", (void*) add}
+};
 ```
 
-### Safe
-```kotlin
-tasks.named("assembleRelease")
-```
-
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
-
-If the task doesn’t exist → build fails immediately.
+Register them in `JNI_OnLoad`.
+This makes refactoring survivable.
 
 ---
 
-## Extension accessors
+## Data Types Mapping (Critical)
 
-### Android plugin example
-```kotlin
-android {
-    compileSdk = 34
-}
-```
+| Kotlin / Java | JNI Type |
+|--------------|----------|
+| Int          | jint     |
+| Long         | jlong    |
+| Boolean      | jboolean |
+| Float        | jfloat   |
+| Double       | jdouble  |
+| String       | jstring  |
+| ByteArray   | jbyteArray |
 
-`android` is a generated accessor from the Android Gradle Plugin.
-
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
-
-If the plugin isn’t applied → accessor doesn’t exist.
+Get this wrong → crash or corrupted memory.
 
 ---
 
-## Version Catalog type-safe accessors
+## Strings (Common Footgun)
 
-### libs.versions.toml
-```toml
-[libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
+```cpp
+const char* str = env->GetStringUTFChars(jStr, nullptr);
+// use it
+env->ReleaseStringUTFChars(jStr, str);
 ```
 
-### Usage
-```kotlin
-dependencies {
-    implementation(libs.coroutines.core)
-}
-```
+Forget `Release` → memory leak.
+Do it twice → crash.
 
-Generated structure:
-```
-libs.coroutines.core
-```
-
-Rename in TOML → compiler tells you everywhere it breaks.
+JNI is unforgiving.
 
 ---
 
-## Plugin accessors
+## Local vs Global References
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
+- Local refs → valid only during the call
+- Global refs → must be manually freed
+
+```cpp
+jobject global = env->NewGlobalRef(obj);
+// later
+env->DeleteGlobalRef(global);
 ```
 
-### Usage
-```kotlin
-plugins {
-    alias(libs.plugins.android.application)
-}
+Leak globals → permanent memory leak.
+
+---
+
+## Threading Rules (DO NOT VIOLATE)
+
+- JNI calls must happen on **attached threads**
+- Native threads must attach to JVM manually
+
+```cpp
+vm->AttachCurrentThread(&env, nullptr);
+// work
+vm->DetachCurrentThread();
 ```
 
-This is the **cleanest possible Gradle setup** today.
+Wrong thread = instant crash.
 
 ---
 
-## Common pitfalls (real-world)
+## Performance Reality
 
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
+JNI has overhead:
+- Context switching
+- Data copying
 
-Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
-```
+Rule:
+- Fewer, larger calls
+- Not many tiny calls
 
-### ❌ Slow sync
-Cause:
-- Accessor regeneration
-- Huge version catalogs
-
-Fix:
-- Enable configuration cache
-- Reduce dynamic includes
+Batch work in native code.
 
 ---
 
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
+## Common JNI Anti-patterns
 
-For large projects, this is **always worth it**.
+### ❌ Business logic in C++
+Harder to test. Harder to maintain.
 
----
+### ❌ Chatty JNI calls
+Performance death by a thousand cuts.
 
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
-
-In those cases, explicit APIs are clearer.
+### ❌ Ignoring crashes
+JNI crashes are **fatal**. Always use logs and symbols.
 
 ---
 
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
+## JNI vs FFI (Context)
 
-You are choosing **fragility over correctness**.
+JNI:
+- Low-level
+- Verbose
+- Maximum control
 
-Type-safe accessors are not optional anymore.
-They are table stakes.
+FFI (e.g. Dart FFI):
+- Cleaner
+- Less JVM involvement
+- Still dangerous
 
----
-
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
+JNI is still king on Android.
 
 ---
 
-End of document.
+## Final Verdict
+
+JNI is powerful, sharp, and dangerous.
+
+If you need it:
+- Keep the bridge thin
+- Own memory explicitly
+- Respect threading rules
+
+If you don’t need it:
+- Stay in Kotlin
+
+JNI doesn’t forgive ignorance — it exposes it.
+

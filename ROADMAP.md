@@ -1,13 +1,13 @@
 # Android Senior Developer Roadmap
 
-This roadmap defines **practical, production-level Android seniority**.  
+This roadmap defines **practical, production-level Android topics**.  
 It is ordered from fundamentals to system-level mastery and real-world ownership.
 
 Covering this end to end means you can **design, build, debug, scale, and maintain Android applications in production**.
 
 ---
 
-## PHASE 1 — Core Foundations (Non-Negotiable)
+## PHASE A — Core Foundations (Non-Negotiable)
 
 ### Kotlin Language Mastery
 - Kotlin syntax and idioms
@@ -54,7 +54,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 2 — UI Systems (Views and Compose)
+## PHASE B — UI Systems (Views and Compose)
 
 ### View System (Required Knowledge)
 - View hierarchy
@@ -95,7 +95,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 3 — Architecture & Data Layer
+## PHASE C — Architecture & Data Layer
 
 ### Architecture Patterns
 - MVVM (proper responsibilities)
@@ -134,7 +134,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 4 — Concurrency & Background Work
+## PHASE D — Concurrency & Background Work
 
 ### Advanced Coroutines & Flow
 - Cold vs hot flows
@@ -153,7 +153,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 5 — Android OS & System Knowledge (Senior Requirement)
+## PHASE E — Android OS & System Knowledge (Senior Requirement)
 
 ### Android Runtime & Processes
 - Zygote process
@@ -185,7 +185,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 6 — Performance, Debugging & Stability
+## PHASE F — Performance, Debugging & Stability
 
 ### Performance Optimization
 - Startup optimization (cold/warm/hot)
@@ -209,7 +209,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 7 — Testing & Quality
+## PHASE G — Testing & Quality
 
 ### Testing Strategy
 - Unit tests (ViewModels, business logic)
@@ -228,7 +228,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 8 — Build System & Tooling
+## PHASE H — Build System & Tooling
 
 ### Gradle Advanced
 - Build lifecycle
@@ -249,7 +249,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 9 — Security & Production Readiness
+## PHASE I — Security & Production Readiness
 
 ### Security
 - Secure storage
@@ -267,7 +267,7 @@ Covering this end to end means you can **design, build, debug, scale, and mainta
 
 ---
 
-## PHASE 10 — Ownership Skills (Often Ignored)
+## PHASE J — Ownership Skills (Often Ignored)
 
 - Technical decision-making
 - Trade-off analysis

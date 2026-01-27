@@ -1,0 +1,16 @@
+package com.example.androidroadmap.a_phase.d_Android_Manifest_and_App_Configuration.a_Permissions.examples
+
+import RoadMapAppTheme
+import a_phase.d_Android_Manifest_and_App_Configuration.a_Permissions.examples.LocationPermissionScreen
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+
+class PermissionsExampleActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            RoadMapAppTheme (view = { LocationPermissionScreen()})
+        }
+    }
+}

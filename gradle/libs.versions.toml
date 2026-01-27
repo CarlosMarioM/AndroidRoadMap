@@ -1,6 +1,6 @@
 [versions]
 # Project Config
-agp = "8.5.2"
+agp = "8.6.0"
 kotlin = "2.0.0"
 compileSdk = "36"
 minSdk = "24"
@@ -18,14 +18,15 @@ lifecycle = "2.8.0" # Unified lifecycle version
 # Compose
 composeBom = "2024.05.00" # Use the BOM to manage Compose versions
 accompanist = "0.34.0"
-
+compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core" }
 # DI & Tools
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.21"
 room = "2.6.1" # Added for Room Persistence Library
 monitor = "1.7.2"
 junitKtx = "1.2.1"
-navigationCompose = "2.8.8" # Matches Kotlin 2.0.0
+navigationCompose = "2.8.8"
+material3 = "1.4.0" # Matches Kotlin 2.0.0
 
 [libraries]
 # --- Android Core ---
@@ -71,6 +72,7 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 
 # --- Kotlin Coroutines ---
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 
 
 

@@ -1,267 +1,270 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# Android NDK Integration (Gradle + CMake)
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+> JNI without proper NDK integration is just wishful thinking.
+> This document explains **how the Android NDK is actually wired into a Gradle project**, how CMake fits in, and how to avoid the classic traps that waste days.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+This is the missing link between *"I wrote native code"* and *"it actually builds, loads, and runs"*.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## What the NDK Really Is
 
-Kotlin DSL does **not**.
+The Android NDK is:
+- A **toolchain** to compile C/C++ into Android-compatible `.so` libraries
+- A **bridge** between Gradle and native build systems
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+The NDK is NOT:
+- A runtime
+- A magic performance switch
+- Optional once JNI is involved
 
----
-
-## Where type-safe accessors apply
-
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+No NDK → no native code on Android.
 
 ---
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
+## Native Build Options (Pick One)
 
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
+Android supports **two** native build systems:
 
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+### 1. CMake (Recommended)
+- Actively supported
+- Well-documented
+- Plays nicely with Gradle
+
+### 2. ndk-build (Makefiles)
+- Legacy
+- Harder to maintain
+- Avoid unless you inherit it
+
+If you’re starting fresh: **use CMake**.
 
 ---
 
-## Project accessors (multi-module)
+## Minimal Project Structure
 
-### settings.gradle.kts
-```kotlin
-rootProject.name = "MyApp"
-
-include(":core")
-include(":feature:login")
-include(":feature:profile")
+```text
+app
+└── src/main
+    ├── cpp
+    │   ├── native-lib.cpp
+    │   └── CMakeLists.txt
+    └── AndroidManifest.xml
 ```
 
-### Usage
-```kotlin
-dependencies {
-    implementation(projects.core)
-    implementation(projects.feature.login)
-}
-```
-
-No strings. Fully safe.
+Gradle will:
+- Invoke CMake
+- Compile `.so` per ABI
+- Package them into the APK/AAB
 
 ---
 
-## Configuration accessors
+## Enabling NDK in Gradle
 
-### Groovy (old)
-```groovy
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-}
-```
+### Module build.gradle.kts
 
-### Kotlin DSL
-```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-}
-```
-
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
-
-Misspell it → compile error.
-
----
-
-## Task accessors
-
-### Unsafe
-```kotlin
-tasks.getByName("assembleRelease")
-```
-
-### Safe
-```kotlin
-tasks.named("assembleRelease")
-```
-
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
-
-If the task doesn’t exist → build fails immediately.
-
----
-
-## Extension accessors
-
-### Android plugin example
 ```kotlin
 android {
-    compileSdk = 34
+    defaultConfig {
+        minSdk = 24
+
+        externalNativeBuild {
+            cmake {
+                cppFlags += "-std=c++17"
+            }
+        }
+
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
+    }
 }
 ```
 
-`android` is a generated accessor from the Android Gradle Plugin.
-
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
-
-If the plugin isn’t applied → accessor doesn’t exist.
+This is the **minimum viable wiring**.
 
 ---
 
-## Version Catalog type-safe accessors
+## CMakeLists.txt (The Real Build File)
 
-### libs.versions.toml
-```toml
-[libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
+```cmake
+cmake_minimum_required(VERSION 3.22.1)
+
+project(native_lib)
+
+add_library(
+    native-lib
+    SHARED
+    native-lib.cpp
+)
+
+find_library(
+    log-lib
+    log
+)
+
+target_link_libraries(
+    native-lib
+    ${log-lib}
+)
 ```
 
-### Usage
+Gradle doesn’t compile C++.
+CMake does.
+
+---
+
+## Library Naming Rules (Critical)
+
+If you load:
 ```kotlin
-dependencies {
-    implementation(libs.coroutines.core)
-}
+System.loadLibrary("native-lib")
 ```
 
-Generated structure:
-```
-libs.coroutines.core
+Then CMake must produce:
+```text
+libnative-lib.so
 ```
 
-Rename in TOML → compiler tells you everywhere it breaks.
+Mismatch = `UnsatisfiedLinkError` at runtime.
 
 ---
 
-## Plugin accessors
+## ABI Handling (Do NOT ignore this)
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
-```
+Android devices use different CPU architectures.
 
-### Usage
+Common ABIs:
+- `arm64-v8a` (modern default)
+- `armeabi-v7a` (older)
+- `x86_64` (emulators)
+
+Rule:
+- Support **arm64-v8a** minimum
+- Add x86_64 if you care about emulators
+
+More ABIs = bigger APK.
+
+---
+
+## Debug vs Release Builds
+
+Gradle automatically builds:
+- Debug `.so` with symbols
+- Release `.so` optimized and stripped
+
+To debug native crashes:
+- Use **debuggable build**
+- Keep symbols
+
 ```kotlin
-plugins {
-    alias(libs.plugins.android.application)
+ndk {
+    debugSymbolLevel = "FULL"
 }
 ```
 
-This is the **cleanest possible Gradle setup** today.
+Without symbols, native stacktraces are useless.
 
 ---
 
-## Common pitfalls (real-world)
+## Logging from Native Code
 
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
+```cpp
+#include <android/log.h>
+
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "NDK", __VA_ARGS__)
+
+LOGI("Native code loaded");
+```
+
+If you’re not logging, you’re blind.
+
+---
+
+## Gradle Sync & Common Failures
+
+### ❌ CMake not found
 
 Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
-```
+- Install **CMake** and **NDK** via Android Studio SDK Manager
 
-### ❌ Slow sync
+---
+
+### ❌ ABI missing at runtime
+
 Cause:
-- Accessor regeneration
-- Huge version catalogs
+- APK doesn’t include the device ABI
 
 Fix:
-- Enable configuration cache
-- Reduce dynamic includes
+- Check `abiFilters`
+- Inspect APK contents
 
 ---
 
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
+### ❌ Undefined symbols
 
-For large projects, this is **always worth it**.
+Cause:
+- Missing source files
+- Missing libraries
 
----
-
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
-
-In those cases, explicit APIs are clearer.
+Fix:
+- Fix `CMakeLists.txt`
+- Don’t blame Gradle
 
 ---
 
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
+## Multi-module + NDK
 
-You are choosing **fragility over correctness**.
+Yes, native code can live in library modules.
 
-Type-safe accessors are not optional anymore.
-They are table stakes.
+Rules:
+- One `.so` per module
+- Clear ownership
+- Avoid circular native dependencies
 
----
-
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
+Native spaghetti is worse than Java spaghetti.
 
 ---
 
-End of document.
+## Performance Reality Check
+
+NDK does not guarantee speed.
+
+You only win if:
+- Native code does heavy work
+- JNI calls are coarse-grained
+- Memory is handled correctly
+
+Bad NDK code is slower than Kotlin.
+
+---
+
+## When NOT to Use the NDK
+
+Don’t integrate NDK if:
+- You only need portability
+- You only want "speed"
+- You don’t control crashes
+
+NDK increases:
+- Build complexity
+- Debug difficulty
+- Maintenance cost
+
+Make it earn its place.
+
+---
+
+## Final Verdict
+
+NDK integration is plumbing.
+
+Do it once.
+Do it clean.
+
+If native code becomes painful, it’s not Android’s fault — it’s your build setup.

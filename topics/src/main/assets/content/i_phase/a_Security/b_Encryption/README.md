@@ -1,267 +1,232 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# Encryption on Android
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+This is **real encryption**, not cargo-cult crypto.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+If you don’t understand *why* each choice is made, you are doing it wrong.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## What Encryption Is (and Is Not)
 
-Kotlin DSL does **not**.
+Encryption:
+- Protects **data at rest** and **data in transit**
+- Assumes the attacker *will* get access to storage
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+Encryption does **NOT**:
+- Protect against compromised devices
+- Protect secrets embedded in your APK
+- Replace authentication or authorization
 
----
-
-## Where type-safe accessors apply
-
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+If your threat model is wrong, encryption is theater.
 
 ---
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
+## Core Crypto Goals
 
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
+Every crypto system tries to achieve:
 
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+1. **Confidentiality** – data is unreadable
+2. **Integrity** – data cannot be modified silently
+3. **Authenticity** – data comes from who you expect
+
+On Android, this usually means:
+- AES for data
+- RSA or EC for key exchange
+- HMAC or AEAD for integrity
 
 ---
 
-## Project accessors (multi-module)
+## AES on Android (The Only Correct Default)
 
-### settings.gradle.kts
-```kotlin
-rootProject.name = "MyApp"
+### Use AES-GCM
 
-include(":core")
-include(":feature:login")
-include(":feature:profile")
-```
+**AES-GCM** gives you:
+- Encryption
+- Authentication
+- Integrity
 
-### Usage
-```kotlin
-dependencies {
-    implementation(projects.core)
-    implementation(projects.feature.login)
-}
-```
+In one operation.
 
-No strings. Fully safe.
+Never use:
+- AES-ECB ❌
+- AES-CBC without MAC ❌
 
----
+### Correct Parameters
 
-## Configuration accessors
-
-### Groovy (old)
-```groovy
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-}
-```
-
-### Kotlin DSL
-```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-}
-```
-
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
-
-Misspell it → compile error.
+- Key size: **256 bits** (128 is fine, but no reason not to)
+- Mode: `GCM`
+- Padding: `NoPadding`
+- IV: **12 bytes**, random, unique per encryption
 
 ---
 
-## Task accessors
+## Android Keystore + AES (Correct Pattern)
 
-### Unsafe
-```kotlin
-tasks.getByName("assembleRelease")
-```
+Keys **must never leave the Keystore**.
 
-### Safe
-```kotlin
-tasks.named("assembleRelease")
-```
+You encrypt/decrypt *through* the key.
 
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
+Benefits:
+- Hardware-backed when available
+- Keys non-exportable
+- Protected from app backup
 
-If the task doesn’t exist → build fails immediately.
+Use cases:
+- Encrypt SharedPreferences
+- Encrypt databases
+- Encrypt files
 
 ---
 
-## Extension accessors
+## RSA / EC on Android (When and Why)
 
-### Android plugin example
-```kotlin
-android {
-    compileSdk = 34
-}
-```
+Asymmetric crypto is **not** for bulk data.
 
-`android` is a generated accessor from the Android Gradle Plugin.
+Use it for:
+- Key exchange
+- Signing
+- Secure bootstrap
 
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
+### Correct Usage
 
-If the plugin isn’t applied → accessor doesn’t exist.
+- Generate RSA/EC keypair in Keystore
+- Use it to encrypt or unwrap an AES key
+- Store AES key encrypted
 
----
-
-## Version Catalog type-safe accessors
-
-### libs.versions.toml
-```toml
-[libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
-```
-
-### Usage
-```kotlin
-dependencies {
-    implementation(libs.coroutines.core)
-}
-```
-
-Generated structure:
-```
-libs.coroutines.core
-```
-
-Rename in TOML → compiler tells you everywhere it breaks.
+If you encrypt files directly with RSA, you failed.
 
 ---
 
-## Plugin accessors
+## Encryption at Rest
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
-```
+### Correct Stack (High-Level)
 
-### Usage
-```kotlin
-plugins {
-    alias(libs.plugins.android.application)
-}
-```
+- EncryptedSharedPreferences
+- EncryptedFile
+- SQLCipher (with Keystore-protected key)
 
-This is the **cleanest possible Gradle setup** today.
+These use:
+- AES-GCM
+- Random IVs
+- Secure key storage
 
----
+### Common Mistakes
 
-## Common pitfalls (real-world)
-
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
-
-Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
-```
-
-### ❌ Slow sync
-Cause:
-- Accessor regeneration
-- Huge version catalogs
-
-Fix:
-- Enable configuration cache
-- Reduce dynamic includes
+- Hardcoding passwords
+- Reusing IVs
+- Using Base64 as “encryption”
 
 ---
 
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
+## Encryption in Transit
 
-For large projects, this is **always worth it**.
+### TLS (Always)
 
----
+- HTTPS only
+- TLS 1.2+ minimum
+- Certificate validation ON
 
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
+### Certificate Pinning
 
-In those cases, explicit APIs are clearer.
+Use pinning if:
+- High-value targets
+- Financial or medical data
 
----
-
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
-
-You are choosing **fragility over correctness**.
-
-Type-safe accessors are not optional anymore.
-They are table stakes.
+Be aware:
+- Pinning breaks on cert rotation
+- Needs update strategy
 
 ---
 
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
+## Password-Based Encryption (Avoid If Possible)
+
+If you must:
+
+- Use **PBKDF2**, **scrypt**, or **Argon2**
+- High iteration count
+- Unique salt per user
+
+Never:
+- Store raw passwords
+- Roll your own KDF
 
 ---
 
-End of document.
+## Encryption + NDK (Native Crypto)
+
+### When Native Crypto Makes Sense
+
+- Performance-critical pipelines
+- DSP / emulators
+- Streaming encryption
+
+### Risks
+
+- Easier to reverse engineer
+- Harder to audit
+- Memory handling errors
+
+If you do crypto in C/C++:
+- Use battle-tested libs (BoringSSL, libsodium)
+- Zero memory explicitly
+- Avoid JNI round-trips per block
+
+---
+
+## Key Lifecycle (Most Apps Ignore This)
+
+You must define:
+
+- Key creation
+- Key rotation
+- Key invalidation
+- Key revocation
+
+Android Keystore supports:
+- User authentication requirements
+- Device lock dependency
+- Biometric gating
+
+Ignoring lifecycle = future breach.
+
+---
+
+## Threat Reality Check
+
+What encryption protects:
+- Lost phone
+- Backup extraction
+- Offline attackers
+
+What it doesn’t:
+- Rooted devices
+- Runtime memory inspection
+- Hooking (Frida, Xposed)
+
+Defense is **layers**, not crypto alone.
+
+---
+
+## Senior-Level Rules (Non-Negotiable)
+
+- Never invent crypto
+- Never store secrets in code
+- Never reuse IVs
+- Never skip authentication
+- Always define threat model first
+
+If you violate any of these, your encryption is broken — period.
+
+---
+
+## What Comes Next
+
+Natural continuation topics:
+
+- Key Management & Rotation Strategies
+- Biometric-bound encryption
+- Anti-tampering vs crypto
+- Secure communication protocols
+- Reverse engineering encrypted apps
+
+Pick one. This stack builds fast.

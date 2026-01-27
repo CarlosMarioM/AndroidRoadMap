@@ -1,267 +1,232 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# Secure Storage on Android (Keystore, Encrypted Storage, Native Considerations)
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+> Secure storage is not about hiding strings — it’s about **threat models**.
+> This document explains **what Android can actually protect**, **what it cannot**, and **how to store sensitive data correctly** without security theater.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+If your strategy is "obfuscate and hope", you are already compromised.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## First: Define the Threat Model (Mandatory)
 
-Kotlin DSL does **not**.
+Before choosing any storage:
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+Ask:
+- Who is the attacker? (user, malware, rooted device, physical access)
+- What are you protecting? (tokens, keys, PII)
+- How long must it be protected?
+
+No threat model → fake security.
 
 ---
 
-## Where type-safe accessors apply
+## What Android Can and Cannot Protect
 
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+### Android CAN:
+- Protect keys using hardware-backed keystore
+- Prevent key extraction (even on rooted devices, usually)
+- Encrypt data at rest
 
----
+### Android CANNOT:
+- Protect secrets once your app is fully compromised
+- Hide data from a determined attacker with code execution
+- Save you from bad architecture
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
-
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
-
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+Security is about **raising cost**, not perfection.
 
 ---
 
-## Project accessors (multi-module)
+## The Android Keystore (The Foundation)
 
-### settings.gradle.kts
+The Keystore:
+- Stores **cryptographic keys**, not raw secrets
+- Can be hardware-backed (TEE / StrongBox)
+- Prevents key material export
+
+You encrypt data **with keys**, not store data inside it.
+
+---
+
+## Generating a Secure Key (AES)
+
 ```kotlin
-rootProject.name = "MyApp"
+val keyGenerator = KeyGenerator.getInstance(
+    KeyProperties.KEY_ALGORITHM_AES,
+    "AndroidKeyStore"
+)
 
-include(":core")
-include(":feature:login")
-include(":feature:profile")
+val keyGenParameterSpec = KeyGenParameterSpec.Builder(
+    "secure_key",
+    KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+)
+    .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+    .setUserAuthenticationRequired(false)
+    .build()
+
+keyGenerator.init(keyGenParameterSpec)
+keyGenerator.generateKey()
 ```
 
-### Usage
+Keys never leave the keystore.
+
+---
+
+## Encrypting Data Manually (Correct Way)
+
 ```kotlin
-dependencies {
-    implementation(projects.core)
-    implementation(projects.feature.login)
-}
+val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+
+val iv = cipher.iv
+val encrypted = cipher.doFinal(data)
 ```
 
-No strings. Fully safe.
+You must store:
+- Encrypted data
+- IV
+
+Lose the IV → data is gone.
 
 ---
 
-## Configuration accessors
+## EncryptedSharedPreferences (Good Defaults)
 
-### Groovy (old)
-```groovy
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-}
-```
+For most apps, this is enough.
 
-### Kotlin DSL
 ```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-}
+val prefs = EncryptedSharedPreferences.create(
+    context,
+    "secure_prefs",
+    MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+)
 ```
 
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
+Pros:
+- Easy
+- Correct by default
 
-Misspell it → compile error.
+Cons:
+- Not designed for large data
 
 ---
 
-## Task accessors
+## Encrypted Files (Large Data)
 
-### Unsafe
 ```kotlin
-tasks.getByName("assembleRelease")
+val encryptedFile = EncryptedFile.Builder(
+    File(context.filesDir, "secret.bin"),
+    context,
+    MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+    EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+).build()
 ```
 
-### Safe
+Use this for:
+- Cached credentials
+- Local databases
+
+---
+
+## What NOT to Do (Ever)
+
+### ❌ Store secrets in SharedPreferences
+### ❌ Hardcode API keys
+### ❌ Roll your own crypto
+### ❌ Base64 ≠ encryption
+
+These are rookie mistakes.
+
+---
+
+## Secure Storage + Native Code (JNI / NDK)
+
+Important rule:
+
+> **Never store secrets directly in C/C++**
+
+Why:
+- Native memory can be dumped
+- No lifecycle protection
+- Harder to wipe safely
+
+Correct pattern:
+```text
+Keystore → Key
+Kotlin → Encryption
+Native → Uses decrypted data transiently
+```
+
+Native code should process data, not own secrets.
+
+---
+
+## Token Storage Strategy (Real Apps)
+
+Best practice:
+- Short-lived access tokens
+- Refresh tokens encrypted
+- Server-side revocation
+
+Never trust local storage alone.
+
+---
+
+## Biometrics & User Authentication
+
+Keys can be gated by biometrics:
+
 ```kotlin
-tasks.named("assembleRelease")
+.setUserAuthenticationRequired(true)
+.setUserAuthenticationParameters(
+    30,
+    KeyProperties.AUTH_BIOMETRIC_STRONG
+)
 ```
 
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
-
-If the task doesn’t exist → build fails immediately.
+This protects against background extraction.
 
 ---
 
-## Extension accessors
+## Rooted Devices (Hard Truth)
 
-### Android plugin example
-```kotlin
-android {
-    compileSdk = 34
-}
-```
+On rooted devices:
+- Memory inspection is possible
+- Hooking frameworks exist
 
-`android` is a generated accessor from the Android Gradle Plugin.
+Keystore still helps, but:
+- Assume eventual compromise
+- Limit blast radius
 
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
-
-If the plugin isn’t applied → accessor doesn’t exist.
+Security is layers, not absolutes.
 
 ---
 
-## Version Catalog type-safe accessors
+## Common Anti-patterns
 
-### libs.versions.toml
-```toml
-[libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
-```
+### ❌ "It’s in native code so it’s safe"
+False.
 
-### Usage
-```kotlin
-dependencies {
-    implementation(libs.coroutines.core)
-}
-```
+### ❌ "Obfuscation is security"
+False.
 
-Generated structure:
-```
-libs.coroutines.core
-```
-
-Rename in TOML → compiler tells you everywhere it breaks.
+### ❌ "No one will look"
+They will.
 
 ---
 
-## Plugin accessors
+## Final Verdict
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
-```
+Secure storage on Android is:
+- Keystore-backed keys
+- Strong encryption
+- Minimal exposure
 
-### Usage
-```kotlin
-plugins {
-    alias(libs.plugins.android.application)
-}
-```
+If your app handles real secrets:
+- Design for compromise
+- Reduce damage
+- Rotate aggressively
 
-This is the **cleanest possible Gradle setup** today.
-
----
-
-## Common pitfalls (real-world)
-
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
-
-Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
-```
-
-### ❌ Slow sync
-Cause:
-- Accessor regeneration
-- Huge version catalogs
-
-Fix:
-- Enable configuration cache
-- Reduce dynamic includes
-
----
-
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
-
-For large projects, this is **always worth it**.
-
----
-
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
-
-In those cases, explicit APIs are clearer.
-
----
-
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
-
-You are choosing **fragility over correctness**.
-
-Type-safe accessors are not optional anymore.
-They are table stakes.
-
----
-
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
-
----
-
-End of document.
+Security is not hiding — it’s engineering.

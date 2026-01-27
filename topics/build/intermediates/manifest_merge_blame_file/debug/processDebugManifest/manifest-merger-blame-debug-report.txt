@@ -5,45 +5,68 @@
 5    <uses-sdk android:minSdkVersion="24" />
 6
 7    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-7-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:5-81
-7-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:22-78
-8
-9    <application>
-9-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:7:5-26:19
-10        <activity
-10-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:8:9-11:58
-11            android:name="a_phase.c_Android_Core_Components.a_Activities.examples.MyActivity"
-11-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:9:13-94
-12            android:exported="false"
-12-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:10:13-37
-13            android:label="Activity Lifecycle Example" />
-13-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:11:13-55
-14        <activity
-14-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:13:9-16:58
-15            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyActivity"
-15-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:14:13-102
-16            android:exported="false"
-16-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:15:13-37
-17            android:label="Broadcast Receiver Example" />
-17-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:16:13-55
-18
-19        <receiver
-19-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:18:9-25:20
-20            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyBroadcastReceiver"
-20-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:19:13-111
-21            android:exported="true" >
-21-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:20:13-36
-22            <intent-filter>
-22-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:21:13-24:29
-23                <action android:name="android.intent.action.BOOT_COMPLETED" />
-23-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:17-79
-23-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:25-76
-24
-25                <category android:name="android.intent.category.DEFAULT" />
-25-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:17-76
-25-->/Users/carlodmariomederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:27-73
-26            </intent-filter>
-27        </receiver>
-28    </application>
+7-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:5-81
+7-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:5:22-78
+8    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+8-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:6:5-79
+8-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:6:22-76
+9
+10    <application>
+10-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:8:5-37:19
+11        <activity
+11-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:9:9-12:58
+12            android:name="a_phase.c_Android_Core_Components.a_Activities.examples.MyActivity"
+12-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:10:13-94
+13            android:exported="false"
+13-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:11:13-37
+14            android:label="Activity Lifecycle Example" />
+14-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:12:13-55
+15        <activity
+15-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:14:9-17:58
+16            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyActivity"
+16-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:15:13-102
+17            android:exported="false"
+17-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:16:13-37
+18            android:label="Broadcast Receiver Example" />
+18-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:17:13-55
+19
+20        <receiver
+20-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:19:9-26:20
+21            android:name="a_phase.c_Android_Core_Components.d_BroadcastReceivers.examples.MyBroadcastReceiver"
+21-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:20:13-111
+22            android:exported="true" >
+22-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:21:13-36
+23            <intent-filter>
+23-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:22:13-25:29
+24                <action android:name="android.intent.action.BOOT_COMPLETED" />
+24-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:17-79
+24-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:23:25-76
+25
+26                <category android:name="android.intent.category.DEFAULT" />
+26-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:24:17-76
+26-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:24:27-73
+27            </intent-filter>
+28        </receiver>
 29
-30</manifest>
+30        <activity
+30-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:28:9-36:20
+31            android:name="a_phase.d_Android_Manifest_and_App_Configuration.a_Permissions.examples.PermissionsExampleActivity"
+31-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:29:13-126
+32            android:exported="true"
+32-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:30:13-36
+33            android:label="Permissions Example" >
+33-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:31:13-48
+34            <intent-filter>
+34-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:32:13-35:29
+35                <action android:name="android.intent.action.MAIN" />
+35-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:33:17-69
+35-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:33:25-66
+36
+37                <category android:name="android.intent.category.LAUNCHER" />
+37-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:34:17-77
+37-->/Users/carlos.mederos/Code/AndroidRoadMap/topics/src/main/AndroidManifest.xml:34:27-74
+38            </intent-filter>
+39        </activity>
+40    </application>
+41
+42</manifest>

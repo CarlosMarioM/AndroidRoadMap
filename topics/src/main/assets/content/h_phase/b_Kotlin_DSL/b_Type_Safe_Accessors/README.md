@@ -1,267 +1,260 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# Gradle Type-safe Accessors (Kotlin DSL)
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+> Type-safe accessors are **the real payoff** of migrating to Kotlin DSL.
+> This document explains **what they are**, **how they work**, and **how to use them correctly** in Android projects — without cargo-culting.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+If you’re not using type-safe accessors, you’re basically running Kotlin DSL with the handbrake on.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## What are Type-safe Accessors (plain truth)
 
-Kotlin DSL does **not**.
+Type-safe accessors are **generated Kotlin properties** that replace string-based access to:
+- Projects
+- Dependencies
+- Version catalogs
+- Extensions
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+Instead of this (Groovy-style):
+```kotlin
+implementation("androidx.core:core-ktx:1.12.0")
+```
+
+You get this:
+```kotlin
+implementation(libs.androidx.core.ktx)
+```
+
+And instead of:
+```kotlin
+project(":core")
+```
+
+You get:
+```kotlin
+projects.core
+```
+
+No strings. No typos. Compile-time safety.
 
 ---
 
-## Where type-safe accessors apply
+## Why Type-safe Accessors Matter (for real projects)
 
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+They give you:
+- **Compile-time validation** of dependencies and modules
+- **IDE navigation** (Cmd/Ctrl + click actually works)
+- **Refactor safety** across large multi-module builds
+- **Cleaner, intention-revealing build scripts**
 
----
+Without them:
+- Renames break silently
+- Typos compile
+- Builds fail at runtime
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
-
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
-
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+That’s unacceptable at scale.
 
 ---
 
-## Project accessors (multi-module)
+## Enabling Type-safe Project Accessors
+
+This is **not optional** for modern builds.
 
 ### settings.gradle.kts
 ```kotlin
-rootProject.name = "MyApp"
-
-include(":core")
-include(":feature:login")
-include(":feature:profile")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 ```
 
-### Usage
+After syncing, Gradle generates:
+```kotlin
+projects.app
+projects.core
+projects.feature.login
+```
+
+Instead of string paths.
+
+---
+
+## Using Type-safe Project Accessors
+
+### Before
+```kotlin
+dependencies {
+    implementation(project(":core"))
+}
+```
+
+### After
 ```kotlin
 dependencies {
     implementation(projects.core)
-    implementation(projects.feature.login)
 }
 ```
 
-No strings. Fully safe.
+Nested modules:
+```kotlin
+implementation(projects.feature.login)
+```
+
+Renaming a module now updates **every reference automatically**.
 
 ---
 
-## Configuration accessors
+## Version Catalogs (libs.versions.toml)
 
-### Groovy (old)
-```groovy
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-}
-```
-
-### Kotlin DSL
-```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-}
-```
-
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
-
-Misspell it → compile error.
-
----
-
-## Task accessors
-
-### Unsafe
-```kotlin
-tasks.getByName("assembleRelease")
-```
-
-### Safe
-```kotlin
-tasks.named("assembleRelease")
-```
-
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
-
-If the task doesn’t exist → build fails immediately.
-
----
-
-## Extension accessors
-
-### Android plugin example
-```kotlin
-android {
-    compileSdk = 34
-}
-```
-
-`android` is a generated accessor from the Android Gradle Plugin.
-
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
-
-If the plugin isn’t applied → accessor doesn’t exist.
-
----
-
-## Version Catalog type-safe accessors
+This is where type-safe accessors shine the most.
 
 ### libs.versions.toml
 ```toml
+[versions]
+kotlin = "1.9.22"
+coroutines = "1.7.3"
+
 [libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "kotlin" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+
+[plugins]
+android-application = { id = "com.android.application", version = "8.2.0" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ```
 
-### Usage
+Gradle generates:
+```kotlin
+libs.androidx.core.ktx
+libs.coroutines.core
+libs.plugins.android.application
+```
+
+---
+
+## Using Type-safe Dependency Accessors
+
+### Dependencies block
 ```kotlin
 dependencies {
+    implementation(libs.androidx.core.ktx)
     implementation(libs.coroutines.core)
 }
 ```
 
-Generated structure:
-```
-libs.coroutines.core
-```
-
-Rename in TOML → compiler tells you everywhere it breaks.
+No coordinates. No guessing. IDE autocomplete guides you.
 
 ---
 
-## Plugin accessors
+## Plugin Accessors (IMPORTANT)
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
-```
-
-### Usage
+### Root build.gradle.kts
 ```kotlin
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
 }
 ```
 
-This is the **cleanest possible Gradle setup** today.
-
----
-
-## Common pitfalls (real-world)
-
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
-
-Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
+### Module
+```kotlin
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
 ```
 
-### ❌ Slow sync
-Cause:
-- Accessor regeneration
-- Huge version catalogs
+This eliminates:
+- Plugin version duplication
+- Plugin drift between modules
+
+---
+
+## Generated Accessors: How They Actually Work
+
+Gradle generates these during **configuration**:
+- Located under `.gradle/kotlin-dsl/accessors`
+- Re-generated when:
+  - `settings.gradle.kts` changes
+  - `libs.versions.toml` changes
+  - Module structure changes
+
+If autocomplete breaks → **invalidate caches or re-sync**.
+
+---
+
+## Common Mistakes (and how to avoid them)
+
+### ❌ Accessor not found
+
+Causes:
+- You didn’t sync
+- You mistyped the TOML key
+- Gradle cache is stale
 
 Fix:
-- Enable configuration cache
-- Reduce dynamic includes
+- Re-sync
+- Check generated accessors
+- Don’t fight the IDE
 
 ---
 
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
+### ❌ Hyphen vs camelCase confusion
 
-For large projects, this is **always worth it**.
+Rule:
+```text
+androidx-core-ktx → libs.androidx.core.ktx
+```
 
----
+Gradle replaces:
+- `-` → `.`
+- camelCase preserved
 
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
-
-In those cases, explicit APIs are clearer.
+Know this or suffer.
 
 ---
 
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
+### ❌ Overengineering the catalog
 
-You are choosing **fragility over correctness**.
+If everything becomes:
+```kotlin
+libs.foo.bar.baz.qux
+```
 
-Type-safe accessors are not optional anymore.
-They are table stakes.
+You failed.
 
----
-
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
+Keep catalogs:
+- Flat
+- Predictable
+- Human-readable
 
 ---
 
-End of document.
+## Type-safe Accessors vs buildSrc
+
+Use **both**, but correctly:
+
+- Version catalogs → dependencies & plugins
+- buildSrc / convention plugins → logic
+
+Do NOT:
+- Put dependencies in buildSrc
+- Put logic in TOML
+
+Each tool has a job.
+
+---
+
+## When Type-safe Accessors Are Not Worth It
+
+Rare cases:
+- Tiny, single-module apps
+- Disposable PoCs
+
+Everywhere else → use them.
+
+---
+
+## Final Verdict
+
+Type-safe accessors turn Gradle from a stringly-typed mess into a **real, refactorable system**.
+
+If your build breaks after enabling them, that’s not a Gradle problem — that’s your build finally telling the truth.
+

@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.accompanist.themeadapter)
 
     implementation(project(":topics"))
+    implementation(project(":ui"))
     implementation(libs.androidx.monitor)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.appcompat)
@@ -57,4 +58,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     debugImplementation(libs.androidx.ui.tooling)
     implementation("io.noties.markwon:core:4.6.2")
+    implementation("androidx.compose.material:material-icons-core:1.7.8")
+// or for extended icons:
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
 }

@@ -1,267 +1,303 @@
-# Type-safe Accessors in Gradle (Kotlin DSL)
+# Gradle Multi-module Configuration (Android)
 
-## What are Type-safe Accessors (straight talk)
-Type-safe accessors are **generated Kotlin properties and functions** that replace string-based access in Gradle.
+> Multi-module builds are **not optional** once an Android project grows.
+> This document explains **how to structure**, **configure**, and **scale** a multi-module Android project using **Kotlin DSL**, **type-safe accessors**, and **modern Gradle practices**.
 
-They eliminate:
-- `project(":module")`
-- `getByName("release")`
-- `"implementation"` as a string
-
-And replace them with **compile-time checked APIs**.
-
-If you typo something, the build **does not compile**.
-That’s the whole point.
+No toy examples. This is how real projects stay sane.
 
 ---
 
-## Why they exist
-Groovy allowed:
-- Dynamic resolution
-- Late failures
-- Silent misconfigurations
+## Why Multi-module Exists (Reality check)
 
-Kotlin DSL does **not**.
+If your app is still single-module:
+- Build times get worse
+- Ownership is unclear
+- Features become entangled
+- Testing is painful
 
-Type-safe accessors give:
-- IDE autocomplete
-- Refactoring safety
-- Faster feedback
-- Fewer runtime Gradle errors
+Multi-module gives you:
+- **Faster builds** (parallelism + caching)
+- **Clear boundaries**
+- **Better testability**
+- **Independent evolution of features**
 
----
-
-## Where type-safe accessors apply
-
-| Area | Example |
-|----|----|
-| Projects | `projects.core`, `projects.feature.login` |
-| Configurations | `implementation`, `debugImplementation` |
-| Tasks | `tasks.named<Jar>("jar")` |
-| Extensions | `android {}`, `kotlin {}` |
-| Version catalogs | `libs.coroutines.core` |
+But only if you structure it correctly.
 
 ---
 
-## How they are generated (important)
-Gradle generates accessors during:
-```
-Settings evaluation
-↓
-Build configuration phase
-↓
-Kotlin DSL accessor generation
-```
+## Canonical Android Module Types
 
-They are compiled into:
-```
-.gradle/kotlin-dsl/accessors/
-```
+You do NOT need 20 kinds. Keep it simple.
 
-This is why:
-- First sync is slow
-- Breaking `settings.gradle.kts` breaks everything
+### 1. `:app`
+- Android application module
+- Entry point only
+- Minimal logic
+
+### 2. `:core:*`
+- Shared business logic
+- Utils, domain models, data layers
+- No Android UI (unless explicitly needed)
+
+### 3. `:feature:*`
+- One feature per module
+- UI + ViewModels + feature-specific logic
+- Depends on `core`, never on other features
+
+### 4. Optional `:designsystem`
+- Compose / Views / themes
+- Zero business logic
 
 ---
 
-## Project accessors (multi-module)
+## Recommended Folder Structure
 
-### settings.gradle.kts
+```text
+root
+├── app
+├── core
+│   ├── common
+│   ├── data
+│   └── domain
+├── feature
+│   ├── login
+│   ├── profile
+│   └── settings
+└── build-logic (or buildSrc)
+```
+
+Flat enough to navigate. Structured enough to scale.
+
+---
+
+## settings.gradle.kts (The source of truth)
+
 ```kotlin
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "MyApp"
 
-include(":core")
-include(":feature:login")
-include(":feature:profile")
+include(
+    ":app",
+    ":core:common",
+    ":core:data",
+    ":core:domain",
+    ":feature:login",
+    ":feature:profile"
+)
 ```
 
-### Usage
+Everything starts here. If it’s not included, it doesn’t exist.
+
+---
+
+## Using Type-safe Project Accessors
+
+Stop writing string paths.
+
 ```kotlin
 dependencies {
-    implementation(projects.core)
+    implementation(projects.core.domain)
     implementation(projects.feature.login)
 }
 ```
 
-No strings. Fully safe.
+If this doesn’t autocomplete, your setup is broken.
 
 ---
 
-## Configuration accessors
+## Dependency Rules (DO NOT BREAK THESE)
 
-### Groovy (old)
-```groovy
+### Allowed
+```text
+app → feature → core
+```
+
+### Forbidden
+```text
+feature → feature
+core → feature
+```
+
+If features depend on each other, you failed modularization.
+
+Fix it by extracting shared logic into `core`.
+
+---
+
+## build.gradle.kts Per Module (Minimalism wins)
+
+### Feature module
+```kotlin
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+}
+
+android {
+    namespace = "com.example.feature.login"
+}
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation(projects.core.domain)
 }
 ```
 
-### Kotlin DSL
-```kotlin
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-}
-```
-
-Gradle generates:
-- `implementation()`
-- `testImplementation()`
-- `debugImplementation()`
-
-Misspell it → compile error.
+No duplication. No cleverness.
 
 ---
 
-## Task accessors
+## Shared Configuration (The RIGHT way)
 
-### Unsafe
+If you see this repeated everywhere:
 ```kotlin
-tasks.getByName("assembleRelease")
+compileSdk = 34
+minSdk = 24
 ```
 
-### Safe
-```kotlin
-tasks.named("assembleRelease")
-```
-
-### Fully typed
-```kotlin
-tasks.named<Jar>("jar") {
-    archiveBaseName.set("my-lib")
-}
-```
-
-If the task doesn’t exist → build fails immediately.
+You are doing it wrong.
 
 ---
 
-## Extension accessors
+## Convention Plugins (Mandatory at scale)
 
-### Android plugin example
+Create a **build-logic module** (preferred over raw buildSrc):
+
+```text
+build-logic
+└── src/main/kotlin
+    ├── android-library.gradle.kts
+    ├── android-feature.gradle.kts
+    └── android-app.gradle.kts
+```
+
+### Example: android-feature.gradle.kts
 ```kotlin
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+}
+
 android {
     compileSdk = 34
+
+    defaultConfig {
+        minSdk = 24
+    }
 }
 ```
 
-`android` is a generated accessor from the Android Gradle Plugin.
+Apply it:
+```kotlin
+plugins {
+    id("android-feature")
+}
+```
 
-Same applies to:
-- `kotlin`
-- `composeOptions`
-- `publishing`
-
-If the plugin isn’t applied → accessor doesn’t exist.
+This is how duplication dies.
 
 ---
 
-## Version Catalog type-safe accessors
+## Version Catalogs Across Modules
 
-### libs.versions.toml
-```toml
-[libraries]
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.8.1" }
-```
+One catalog. One source of truth.
 
-### Usage
 ```kotlin
 dependencies {
     implementation(libs.coroutines.core)
 }
 ```
 
-Generated structure:
-```
-libs.coroutines.core
-```
-
-Rename in TOML → compiler tells you everywhere it breaks.
+If modules define their own versions → chaos.
 
 ---
 
-## Plugin accessors
+## API vs implementation (Critical)
 
-### Version catalog
-```toml
-[plugins]
-android-application = { id = "com.android.application", version = "8.3.0" }
-```
-
-### Usage
+### Core modules
 ```kotlin
-plugins {
-    alias(libs.plugins.android.application)
+dependencies {
+    api(libs.kotlin.stdlib)
 }
 ```
 
-This is the **cleanest possible Gradle setup** today.
-
----
-
-## Common pitfalls (real-world)
-
-### ❌ Accessor not found
-Cause:
-- Plugin not applied
-- Settings file broken
-- Cache corrupted
-
-Fix:
-```bash
-./gradlew --stop
-rm -rf .gradle
+### Feature modules
+```kotlin
+dependencies {
+    implementation(projects.core.domain)
+}
 ```
 
-### ❌ Slow sync
-Cause:
-- Accessor regeneration
-- Huge version catalogs
+Rule:
+- Use `api` **only** when exposing types across module boundaries
+- Default to `implementation`
 
-Fix:
-- Enable configuration cache
-- Reduce dynamic includes
+Wrong usage = slower builds.
 
 ---
 
-## Performance implications
-Type-safe accessors:
-- Increase first configuration time
-- Improve long-term stability
-- Reduce runtime failures
+## Testing in Multi-module Projects
 
-For large projects, this is **always worth it**.
+Each module:
+- Has its own unit tests
+- Can be tested in isolation
 
----
-
-## When NOT to rely on them
-- Highly dynamic builds
-- Generated module names
-- Custom DSLs with runtime behavior
-
-In those cases, explicit APIs are clearer.
+Core modules should have:
+- Highest test coverage
+- Zero Android dependencies if possible
 
 ---
 
-## Senior-level takeaway
-If your Gradle build:
-- Still uses strings everywhere
-- Has no version catalogs
-- Avoids Kotlin DSL
+## Build Performance Benefits (When done right)
 
-You are choosing **fragility over correctness**.
+- Parallel compilation
+- Better configuration cache hits
+- Smaller recompilation surface
 
-Type-safe accessors are not optional anymore.
-They are table stakes.
+If builds are slower after modularization:
+👉 Your dependency graph is wrong.
 
 ---
 
-## Checklist
-- [ ] Kotlin DSL enabled
-- [ ] Version catalogs used
-- [ ] Project accessors enabled
-- [ ] No string-based task lookups
-- [ ] Plugins applied explicitly
+## Common Anti-patterns
+
+### ❌ God-core module
+
+If `core` knows everything → it’s not core, it’s a dump.
+
+Split it.
 
 ---
 
-End of document.
+### ❌ Feature cross-dependencies
+
+"Just this one time" turns into spaghetti.
+
+Don’t do it.
+
+---
+
+### ❌ Copy-pasted Gradle blocks
+
+If you copy configs between modules, you already lost.
+
+Use convention plugins.
+
+---
+
+## Final Verdict
+
+Multi-module builds are about **discipline**, not complexity.
+
+Done right:
+- Faster builds
+- Clear ownership
+- Fearless refactoring
+
+Done wrong:
+- Slower builds
+- Circular dependencies
+- Developer misery
+
+Gradle won’t save you. Architecture will.
+
