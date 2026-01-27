@@ -1,44 +1,33 @@
-# Built objects and packages
+# --- Built artifacts ---
 bin/
 gen/
-obj/
-*/build
-*.apk
-*.aar
-*.ap_
-*.dex
-
-# Android Studio / IntelliJ
-*.iml
-.idea/
-!.idea/codeStyles/
-!.idea/copyright/
-!.idea/vcs.xml
-!.idea/inspectionProfiles/
-# Ignore specific workspace files that change constantly
-.idea/workspace.xml
-.idea/libraries
-.idea/modules.xml
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
-.idea/deploymentTargetDropDown.xml
-
-# Gradle
-.gradle/
-local.properties
-.externalNativeBuild
-.cxx/
+out/
 build/
+.gradle/
 
-# Captures and logs
+# --- IDE Specific (Android Studio / IntelliJ) ---
+.idea/
+*.iml
+*.iws
+*.ipr
 /captures/
-*.head
-*.hprof
-*.stacktrace
+.externalNativeBuild/
+.cxx/
 
-# OS related
+# --- Local configuration (Keep your keys private!) ---
+local.properties
+signing.properties
+*.keystore
+*.jks
+google-services.json
+
+# --- Compiled Kotlin/Java files ---
+*.class
+*.pyc
+
+# --- Log files ---
+*.log
+
+# --- OS specific ---
 .DS_Store
 Thumbs.db
-
-# Optional: Firebase/Google Services
-google-services.json
