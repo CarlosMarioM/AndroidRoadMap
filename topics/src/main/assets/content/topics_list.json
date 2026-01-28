@@ -1,0 +1,1464 @@
+{
+  "domain": "kotlin",
+  "phases": [
+    {
+      "id": "a_phase",
+      "title": "Phase",
+      "order": 1,
+      "topics": [
+        {
+          "id": "a_kotlin_language_mastery",
+          "title": "Kotlin Language Mastery",
+          "subtopics": [
+            {
+              "id": "a_kotlin_syntax_and_idioms",
+              "title": "Kotlin Syntax And Idioms",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/a_Kotlin_Syntax_and_Idioms/README.md",
+              "examples": [
+                {
+                  "id": "basicsyntax",
+                  "title": "BasicSyntax",
+                  "file": "BasicSyntax.kt",
+                  "description": "",
+                  "key": "topics_list.basicsyntax",
+                  "contentKey": "BasicSyntaxComposable"
+                },
+                {
+                  "id": "classesandconstructors",
+                  "title": "ClassesAndConstructors",
+                  "file": "ClassesAndConstructors.kt",
+                  "description": "",
+                  "key": "topics_list.classesandconstructors",
+                  "contentKey": "ClassesAndConstructorsComposable"
+                },
+                {
+                  "id": "collections",
+                  "title": "Collections",
+                  "file": "Collections.kt",
+                  "description": "",
+                  "key": "topics_list.collections",
+                  "contentKey": "CollectionsComposable"
+                },
+                {
+                  "id": "companionobjects",
+                  "title": "CompanionObjects",
+                  "file": "CompanionObjects.kt",
+                  "description": "",
+                  "key": "topics_list.companionobjects",
+                  "contentKey": "CompanionObjectsComposable"
+                },
+                {
+                  "id": "controlflow",
+                  "title": "ControlFlow",
+                  "file": "ControlFlow.kt",
+                  "description": "",
+                  "key": "topics_list.controlflow",
+                  "contentKey": "ControlFlowComposable"
+                },
+                {
+                  "id": "dataclasses",
+                  "title": "DataClasses",
+                  "file": "DataClasses.kt",
+                  "description": "",
+                  "key": "topics_list.dataclasses",
+                  "contentKey": "DataClassesComposable"
+                },
+                {
+                  "id": "destructuring",
+                  "title": "Destructuring",
+                  "file": "Destructuring.kt",
+                  "description": "",
+                  "key": "topics_list.destructuring",
+                  "contentKey": "DestructuringComposable"
+                },
+                {
+                  "id": "equality",
+                  "title": "Equality",
+                  "file": "Equality.kt",
+                  "description": "",
+                  "key": "topics_list.equality",
+                  "contentKey": "EqualityComposable"
+                },
+                {
+                  "id": "extensionfunctions",
+                  "title": "ExtensionFunctions",
+                  "file": "ExtensionFunctions.kt",
+                  "description": "",
+                  "key": "topics_list.extensionfunctions",
+                  "contentKey": "ExtensionFunctionsComposable"
+                },
+                {
+                  "id": "inheritance",
+                  "title": "Inheritance",
+                  "file": "Inheritance.kt",
+                  "description": "",
+                  "key": "topics_list.inheritance",
+                  "contentKey": "InheritanceComposable"
+                },
+                {
+                  "id": "nullsafety",
+                  "title": "NullSafety",
+                  "file": "NullSafety.kt",
+                  "description": "",
+                  "key": "topics_list.nullsafety",
+                  "contentKey": "NullSafetyComposable"
+                },
+                {
+                  "id": "scopefunctions",
+                  "title": "ScopeFunctions",
+                  "file": "ScopeFunctions.kt",
+                  "description": "",
+                  "key": "topics_list.scopefunctions",
+                  "contentKey": "ScopeFunctionsComposable"
+                },
+                {
+                  "id": "sealedclasses",
+                  "title": "SealedClasses",
+                  "file": "SealedClasses.kt",
+                  "description": "",
+                  "key": "topics_list.sealedclasses",
+                  "contentKey": "SealedClassesComposable"
+                },
+                {
+                  "id": "toplevel",
+                  "title": "TopLevel",
+                  "file": "TopLevel.kt",
+                  "description": "",
+                  "key": "topics_list.toplevel",
+                  "contentKey": "TopLevelComposable"
+                }
+              ]
+            },
+            {
+              "id": "b_null_safety_and_platform_types",
+              "title": "Null Safety And Platform Types",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/b_Null_safety_and_Platform_types/README.md",
+              "examples": [
+                {
+                  "id": "nullsafetyadvanced",
+                  "title": "NullSafetyAdvanced",
+                  "file": "NullSafetyAdvanced.kt",
+                  "description": "",
+                  "key": "topics_list.nullsafetyadvanced",
+                  "contentKey": "NullSafetyAdvancedComposable"
+                }
+              ]
+            },
+            {
+              "id": "c_data_classes_vs_sealed_classes_vs_value_classes",
+              "title": "Data Classes Vs Sealed Classes Vs Value Classes",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/c_Data_Classes_vs_Sealed_Classes_vs_Value_Classes/README.md",
+              "examples": [
+                {
+                  "id": "datasealedvalueclasses",
+                  "title": "DataSealedValueClasses",
+                  "file": "DataSealedValueClasses.kt",
+                  "description": "",
+                  "key": "topics_list.datasealedvalueclasses",
+                  "contentKey": "DataSealedValueClassesComposable"
+                }
+              ]
+            },
+            {
+              "id": "d_sealed_interfaces",
+              "title": "Sealed Interfaces",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/d_Sealed_Interfaces/README.md",
+              "examples": [
+                {
+                  "id": "sealedinterfacesexample",
+                  "title": "SealedInterfacesExample",
+                  "file": "SealedInterfacesExample.kt",
+                  "description": "",
+                  "key": "topics_list.sealedinterfacesexample",
+                  "contentKey": "SealedInterfacesExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "e_inline_functions_and_reified_generics",
+              "title": "Inline Functions And Reified Generics",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/e_Inline_Functions_and_Reified_Generics/README.md",
+              "examples": [
+                {
+                  "id": "inlinefunctionsexample",
+                  "title": "InlineFunctionsExample",
+                  "file": "InlineFunctionsExample.kt",
+                  "description": "",
+                  "key": "topics_list.inlinefunctionsexample",
+                  "contentKey": "InlineFunctionsExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "f_lambdas_and_higher_order_functions",
+              "title": "Lambdas And Higher Order Functions",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/f_Lambdas_and_Higher_order_functions/README.md",
+              "examples": [
+                {
+                  "id": "lambdasexample",
+                  "title": "LambdasExample",
+                  "file": "LambdasExample.kt",
+                  "description": "",
+                  "key": "topics_list.lambdasexample",
+                  "contentKey": "LambdasExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "g_collections_and_immutability",
+              "title": "Collections And Immutability",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/g_Collections_and_Immutability/README.md",
+              "examples": [
+                {
+                  "id": "collectionsimmutabilityexample",
+                  "title": "CollectionsImmutabilityExample",
+                  "file": "CollectionsImmutabilityExample.kt",
+                  "description": "",
+                  "key": "topics_list.collectionsimmutabilityexample",
+                  "contentKey": "CollectionsImmutabilityExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "h_operator_overloading",
+              "title": "Operator Overloading",
+              "path": "content/a_phase/a_Kotlin_Language_Mastery/h_Operator_Overloading/README.md",
+              "examples": [
+                {
+                  "id": "operatoroverloadingexample",
+                  "title": "OperatorOverloadingExample",
+                  "file": "OperatorOverloadingExample.kt",
+                  "description": "",
+                  "key": "topics_list.operatoroverloadingexample",
+                  "contentKey": "OperatorOverloadingExampleComposable"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "b_coroutines_fundamentals",
+          "title": "Coroutines Fundamentals",
+          "subtopics": [
+            {
+              "id": "a_suspend_functions",
+              "title": "Suspend Functions",
+              "path": "content/a_phase/b_Coroutines_Fundamentals/a_Suspend_Functions/README.md",
+              "examples": [
+                {
+                  "id": "suspendfunctionsexample",
+                  "title": "SuspendFunctionsExample",
+                  "file": "SuspendFunctionsExample.kt",
+                  "description": "",
+                  "key": "topics_list.suspendfunctionsexample",
+                  "contentKey": "SuspendFunctionsExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "b_coroutine_scopes_and_lifecycle_awareness",
+              "title": "Coroutine Scopes And Lifecycle Awareness",
+              "path": "content/a_phase/b_Coroutines_Fundamentals/b_Coroutine_Scopes_and_Lifecycle_Awareness/README.md",
+              "examples": [
+                {
+                  "id": "coroutinescopesexample",
+                  "title": "CoroutineScopesExample",
+                  "file": "CoroutineScopesExample.kt",
+                  "description": "",
+                  "key": "topics_list.coroutinescopesexample",
+                  "contentKey": "CoroutineScopesExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "c_dispatchers",
+              "title": "Dispatchers",
+              "path": "content/a_phase/b_Coroutines_Fundamentals/c_Dispatchers/README.md",
+              "examples": [
+                {
+                  "id": "dispatchersexample",
+                  "title": "DispatchersExample",
+                  "file": "DispatchersExample.kt",
+                  "description": "",
+                  "key": "topics_list.dispatchersexample",
+                  "contentKey": "DispatchersExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "d_structured_concurrency",
+              "title": "Structured Concurrency",
+              "path": "content/a_phase/b_Coroutines_Fundamentals/d_Structured_Concurrency/README.md",
+              "examples": [
+                {
+                  "id": "structuredconcurrencyexample",
+                  "title": "StructuredConcurrencyExample",
+                  "file": "StructuredConcurrencyExample.kt",
+                  "description": "",
+                  "key": "topics_list.structuredconcurrencyexample",
+                  "contentKey": "StructuredConcurrencyExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "e_cancellation_and_cooperative_cancellation",
+              "title": "Cancellation And Cooperative Cancellation",
+              "path": "content/a_phase/b_Coroutines_Fundamentals/e_Cancellation_and_Cooperative_Cancellation/README.md",
+              "examples": [
+                {
+                  "id": "cancellationexample",
+                  "title": "CancellationExample",
+                  "file": "CancellationExample.kt",
+                  "description": "",
+                  "key": "topics_list.cancellationexample",
+                  "contentKey": "CancellationExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "f_exception_propagation_in_coroutines",
+              "title": "Exception Propagation In Coroutines",
+              "path": "content/a_phase/b_Coroutines_Fundamentals/f_Exception_Propagation_in_Coroutines/README.md",
+              "examples": [
+                {
+                  "id": "exceptionpropagationexample",
+                  "title": "ExceptionPropagationExample",
+                  "file": "ExceptionPropagationExample.kt",
+                  "description": "",
+                  "key": "topics_list.exceptionpropagationexample",
+                  "contentKey": "ExceptionPropagationExampleComposable"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_android_core_components",
+          "title": "Android Core Components",
+          "subtopics": [
+            {
+              "id": "a_activities",
+              "title": "Activities",
+              "path": "content/a_phase/c_Android_Core_Components/a_Activities/README.md",
+              "examples": [
+                {
+                  "id": "activitylifecycleexample",
+                  "title": "ActivityLifecycleExample",
+                  "file": "ActivityLifecycleExample.kt",
+                  "description": "",
+                  "key": "topics_list.activitylifecycleexample",
+                  "contentKey": "ActivityLifecycleExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "b_fragments",
+              "title": "Fragments",
+              "path": "content/a_phase/c_Android_Core_Components/b_Fragments/README.md",
+              "examples": [
+                {
+                  "id": "fragmentlifecycleexample",
+                  "title": "FragmentLifecycleExample",
+                  "file": "FragmentLifecycleExample.kt",
+                  "description": "",
+                  "key": "topics_list.fragmentlifecycleexample",
+                  "contentKey": "FragmentLifecycleExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "c_services",
+              "title": "Services",
+              "path": "content/a_phase/c_Android_Core_Components/c_Services/README.md",
+              "examples": [
+                {
+                  "id": "serviceexample",
+                  "title": "ServiceExample",
+                  "file": "ServiceExample.kt",
+                  "description": "",
+                  "key": "topics_list.serviceexample",
+                  "contentKey": "ServiceExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "d_broadcastreceivers",
+              "title": "BroadcastReceivers",
+              "path": "content/a_phase/c_Android_Core_Components/d_BroadcastReceivers/README.md",
+              "examples": [
+                {
+                  "id": "broadcastreceiverexample",
+                  "title": "BroadcastReceiverExample",
+                  "file": "BroadcastReceiverExample.kt",
+                  "description": "",
+                  "key": "topics_list.broadcastreceiverexample",
+                  "contentKey": "BroadcastReceiverExampleComposable"
+                }
+              ]
+            },
+            {
+              "id": "f_contentproviders",
+              "title": "ContentProviders",
+              "path": "content/a_phase/c_Android_Core_Components/f_ContentProviders/README.md",
+              "examples": [
+                {
+                  "id": "contentproviderexample",
+                  "title": "ContentProviderExample",
+                  "file": "ContentProviderExample.kt",
+                  "description": "",
+                  "key": "topics_list.contentproviderexample",
+                  "contentKey": "ContentProviderExampleComposable"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "d_android_manifest_and_app_configuration",
+          "title": "Android Manifest And App Configuration",
+          "subtopics": [
+            {
+              "id": "a_permissions",
+              "title": "Permissions",
+              "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/a_Permissions/README.md",
+              "examples": [
+                {
+                  "id": "locationpermissionscreen",
+                  "title": "LocationPermissionScreen",
+                  "file": "LocationPermissionScreen.kt",
+                  "description": "",
+                  "key": "topics_list.locationpermissionscreen",
+                  "contentKey": "LocationPermissionScreenComposable"
+                },
+                {
+                  "id": "permissionsexampleactivity",
+                  "title": "PermissionsExampleActivity",
+                  "file": "PermissionsExampleActivity.kt",
+                  "description": "",
+                  "key": "topics_list.permissionsexampleactivity",
+                  "contentKey": "PermissionsExampleActivityComposable"
+                }
+              ]
+            },
+            {
+              "id": "b_runtime_permissions_flow",
+              "title": "Runtime Permissions Flow",
+              "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/b_Runtime_Permissions_Flow/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_intent_filters",
+              "title": "Intent Filters",
+              "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/c_Intent_Filters/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_exported_components",
+              "title": "Exported Components",
+              "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/d_Exported_Components/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_launch_modes_and_task_behaviour",
+              "title": "Launch Modes And Task Behaviour",
+              "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/e_Launch_Modes_and_Task_Behaviour/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "e_lifecycle_and_state_management",
+          "title": "Lifecycle And State Management",
+          "subtopics": [
+            {
+              "id": "a_activity_lifecycle",
+              "title": "Activity Lifecycle",
+              "path": "content/a_phase/e_Lifecycle_and_State_Management/a_Activity_Lifecycle/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_fragment_lifecycle_vs_view_lifecycle",
+              "title": "Fragment Lifecycle Vs View Lifecycle",
+              "path": "content/a_phase/e_Lifecycle_and_State_Management/b_Fragment_Lifecycle_vs_View_Lifecycle/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_configuration_changes",
+              "title": "Configuration Changes",
+              "path": "content/a_phase/e_Lifecycle_and_State_Management/c_Configuration_Changes/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_process_death_vs_recration",
+              "title": "Process Death Vs Recration",
+              "path": "content/a_phase/e_Lifecycle_and_State_Management/d_Process_Death_vs_Recration/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_savedinstancestate",
+              "title": "SavedInstanceState",
+              "path": "content/a_phase/e_Lifecycle_and_State_Management/e_SavedInstanceState/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_savedstatehandle",
+              "title": "SavedStateHandle",
+              "path": "content/a_phase/e_Lifecycle_and_State_Management/f_SavedStateHandle/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b_phase",
+      "title": "Phase",
+      "order": 2,
+      "topics": [
+        {
+          "id": "a_view_system",
+          "title": "View System",
+          "subtopics": [
+            {
+              "id": "a_view_hierarchy",
+              "title": "View Hierarchy",
+              "path": "content/b_phase/a_View_System/a_View_Hierarchy/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_measure_layout_draw_phases",
+              "title": "Measure Layout Draw Phases",
+              "path": "content/b_phase/a_View_System/b_Measure_Layout_Draw_Phases/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_constraintlayout",
+              "title": "ConstraintLayout",
+              "path": "content/b_phase/a_View_System/c_ConstraintLayout/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_recyclerview_internals",
+              "title": "RecyclerView Internals",
+              "path": "content/b_phase/a_View_System/d_RecyclerView_internals/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_diffutil_and_listadapter",
+              "title": "DiffUtil And ListAdapter",
+              "path": "content/b_phase/a_View_System/e_DiffUtil_and_ListAdapter/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_viewholder_pattern",
+              "title": "ViewHolder Pattern",
+              "path": "content/b_phase/a_View_System/e_ViewHolder_Pattern/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_custom_views",
+              "title": "Custom Views",
+              "path": "content/b_phase/a_View_System/f_Custom_Views/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_jetpack_compose_fundamentals",
+          "title": "Jetpack Compose Fundamentals",
+          "subtopics": [
+            {
+              "id": "a_composable_and_composition",
+              "title": "Composable And Composition",
+              "path": "content/b_phase/b_Jetpack_Compose_Fundamentals/a_Composable_and_Composition/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_state_and_state_hoisting",
+              "title": "State And State Hoisting",
+              "path": "content/b_phase/b_Jetpack_Compose_Fundamentals/b_State_and_State_Hoisting/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_recomposition_rules",
+              "title": "Recomposition Rules",
+              "path": "content/b_phase/b_Jetpack_Compose_Fundamentals/c_Recomposition_Rules/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_side_effects",
+              "title": "Side Effects",
+              "path": "content/b_phase/b_Jetpack_Compose_Fundamentals/d_Side_Effects/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_remember_vs_derivedstateof",
+              "title": "Remember Vs DerivedStateOf",
+              "path": "content/b_phase/b_Jetpack_Compose_Fundamentals/e_Remember_vs_DerivedStateOf/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_compositionlocal",
+              "title": "CompositionLocal",
+              "path": "content/b_phase/b_Jetpack_Compose_Fundamentals/f_CompositionLocal/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "c_compose_advanced_topics",
+          "title": "Compose Advanced Topics",
+          "subtopics": [
+            {
+              "id": "a_performance_pitfalls_and_recomposition_control",
+              "title": "Performance Pitfalls And Recomposition Control",
+              "path": "content/b_phase/c_Compose_Advanced_Topics/a_Performance_Pitfalls_and_Recomposition_Control/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_stable_vs_unstable_parameters",
+              "title": "Stable Vs Unstable Parameters",
+              "path": "content/b_phase/c_Compose_Advanced_Topics/b_Stable_vs_Unstable_Parameters/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_custom_layouts",
+              "title": "Custom Layouts",
+              "path": "content/b_phase/c_Compose_Advanced_Topics/c_Custom_Layouts/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_animations",
+              "title": "Animations",
+              "path": "content/b_phase/c_Compose_Advanced_Topics/d_Animations/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_compose_navigation",
+              "title": "Compose Navigation",
+              "path": "content/b_phase/c_Compose_Advanced_Topics/e_Compose_Navigation/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_interop",
+              "title": "Interop",
+              "path": "content/b_phase/c_Compose_Advanced_Topics/f_Interop/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "d_accessibility_and_internationalization",
+          "title": "Accessibility And Internationalization",
+          "subtopics": [
+            {
+              "id": "a_tallback_support",
+              "title": "TallBack Support",
+              "path": "content/b_phase/d_Accessibility_and_Internationalization/a_TallBack_Support/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_content_descriptions",
+              "title": "Content Descriptions",
+              "path": "content/b_phase/d_Accessibility_and_Internationalization/b_Content_Descriptions/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_focus_handling",
+              "title": "Focus Handling",
+              "path": "content/b_phase/d_Accessibility_and_Internationalization/c_Focus_Handling/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_localization_and_resource_qualifiers",
+              "title": "Localization And Resource Qualifiers",
+              "path": "content/b_phase/d_Accessibility_and_Internationalization/d_Localization_and_Resource_Qualifiers/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_rtl_support",
+              "title": "RTL Support",
+              "path": "content/b_phase/d_Accessibility_and_Internationalization/f_RTL_Support/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c_phase",
+      "title": "Phase",
+      "order": 3,
+      "topics": [
+        {
+          "id": "a_architecture_patterns",
+          "title": "Architecture Patterns",
+          "subtopics": [
+            {
+              "id": "a_mvvm",
+              "title": "MVVM",
+              "path": "content/c_phase/a_Architecture_Patterns/a_MVVM/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_mvi",
+              "title": "MVI",
+              "path": "content/c_phase/a_Architecture_Patterns/b_MVI/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_clean_architecture",
+              "title": "Clean Architecture",
+              "path": "content/c_phase/a_Architecture_Patterns/c_Clean_Architecture/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_unidirectional_data_flow",
+              "title": "Unidirectional Data Flow",
+              "path": "content/c_phase/a_Architecture_Patterns/d_Unidirectional_Data_Flow/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_state_vs_events",
+              "title": "State Vs Events",
+              "path": "content/c_phase/a_Architecture_Patterns/e_State_vs_Events/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_dependency_injection",
+          "title": "Dependency Injection",
+          "subtopics": [
+            {
+              "id": "a_hilt",
+              "title": "Hilt",
+              "path": "content/c_phase/b_Dependency_Injection/a_Hilt/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_component_scopes",
+              "title": "Component Scopes",
+              "path": "content/c_phase/b_Dependency_Injection/b_Component_Scopes/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_cusom_scopes",
+              "title": "Cusom Scopes",
+              "path": "content/c_phase/b_Dependency_Injection/c_Cusom_Scopes/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_assisted_injection",
+              "title": "Assisted Injection",
+              "path": "content/c_phase/b_Dependency_Injection/d_Assisted_Injection/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_when_di_becomes_harmful",
+              "title": "When DI Becomes Harmful",
+              "path": "content/c_phase/b_Dependency_Injection/e_When_DI_Becomes_Harmful/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "c_data_persistence",
+          "title": "Data Persistence",
+          "subtopics": [
+            {
+              "id": "a_room",
+              "title": "Room",
+              "path": "content/c_phase/c_Data_Persistence/a_Room/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_datastore",
+              "title": "DataStore",
+              "path": "content/c_phase/c_Data_Persistence/b_DataStore/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_paging_3",
+              "title": "Paging 3",
+              "path": "content/c_phase/c_Data_Persistence/c_Paging_3/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_offline_first_strategies",
+              "title": "Offline-First Strategies",
+              "path": "content/c_phase/c_Data_Persistence/d_Offline-first_Strategies/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_data_synchronization_patterns",
+              "title": "Data Synchronization Patterns",
+              "path": "content/c_phase/c_Data_Persistence/e_Data_Synchronization_Patterns/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "d_networking",
+          "title": "Networking",
+          "subtopics": [
+            {
+              "id": "a_retrofit_internals",
+              "title": "Retrofit Internals",
+              "path": "content/c_phase/d_Networking/a_Retrofit_Internals/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_okhttp",
+              "title": "OkHttp",
+              "path": "content/c_phase/d_Networking/b_OkHttp/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_error_modeling",
+              "title": "Error Modeling",
+              "path": "content/c_phase/d_Networking/c_Error_Modeling/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_api_versioning",
+              "title": "API Versioning",
+              "path": "content/c_phase/d_Networking/d_API_Versioning/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_authentification_and_token_refresh",
+              "title": "Authentification And Token Refresh",
+              "path": "content/c_phase/d_Networking/e_Authentification_and_Token_Refresh/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_pagination_and_partial_loading",
+              "title": "Pagination And Partial Loading",
+              "path": "content/c_phase/d_Networking/f_Pagination_and_Partial_Loading/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d_phase",
+      "title": "Phase",
+      "order": 4,
+      "topics": [
+        {
+          "id": "a_advanced_coroutines_and_flow",
+          "title": "Advanced Coroutines And Flow",
+          "subtopics": [
+            {
+              "id": "a_cold_vs_hot_flow",
+              "title": "Cold Vs Hot Flow",
+              "path": "content/d_phase/a_Advanced_Coroutines_and_Flow/a_Cold_vs_Hot_Flow/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_stateflow_vs_shared_flow",
+              "title": "StateFlow Vs Shared Flow",
+              "path": "content/d_phase/a_Advanced_Coroutines_and_Flow/b_StateFlow_vs_Shared_Flow/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_backpreassure",
+              "title": "BackPreassure",
+              "path": "content/d_phase/a_Advanced_Coroutines_and_Flow/c_BackPreassure/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_flow_operators",
+              "title": "Flow Operators",
+              "path": "content/d_phase/a_Advanced_Coroutines_and_Flow/d_Flow_Operators/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_error_handling_strategies",
+              "title": "Error Handling Strategies",
+              "path": "content/d_phase/a_Advanced_Coroutines_and_Flow/e_Error_Handling_Strategies/README.md",
+              "examples": []
+            },
+            {
+              "id": "f_thread_confinement",
+              "title": "Thread Confinement",
+              "path": "content/d_phase/a_Advanced_Coroutines_and_Flow/f_Thread_Confinement/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_background_execution",
+          "title": "Background Execution",
+          "subtopics": [
+            {
+              "id": "a_workmanager",
+              "title": "WorkManager",
+              "path": "content/d_phase/b_Background_Execution/a_WorkManager/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_alarm_manager",
+              "title": "Alarm Manager",
+              "path": "content/d_phase/b_Background_Execution/b_Alarm_Manager/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_jobscheduler",
+              "title": "JobScheduler",
+              "path": "content/d_phase/b_Background_Execution/c_JobScheduler/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_foreground_service_limits",
+              "title": "Foreground Service Limits",
+              "path": "content/d_phase/b_Background_Execution/d_Foreground_Service_Limits/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_background_execution_limits",
+              "title": "Background Execution Limits",
+              "path": "content/d_phase/b_Background_Execution/e_Background_Execution_Limits/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e_phase",
+      "title": "Phase",
+      "order": 5,
+      "topics": [
+        {
+          "id": "a_android_runtime_and_processes",
+          "title": "Android Runtime And Processes",
+          "subtopics": [
+            {
+              "id": "a_zygote_process",
+              "title": "Zygote Process",
+              "path": "content/e_phase/a_Android_Runtime_and_Processes/a_Zygote_Process/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_app_process_lifecycle",
+              "title": "App Process Lifecycle",
+              "path": "content/e_phase/a_Android_Runtime_and_Processes/b_App_Process_Lifecycle/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_isolated_processes",
+              "title": "Isolated Processes",
+              "path": "content/e_phase/a_Android_Runtime_and_Processes/c_Isolated_Processes/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_art_vs_dalvik",
+              "title": "ART Vs Dalvik",
+              "path": "content/e_phase/a_Android_Runtime_and_Processes/d_ART_vs_Dalvik/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_jit_vs_aot_compilation",
+              "title": "JIT Vs AOT Compilation",
+              "path": "content/e_phase/a_Android_Runtime_and_Processes/e_JIT_vs_AOT_Compilation/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_ipc_and_system_communication",
+          "title": "IPC And System Communication",
+          "subtopics": [
+            {
+              "id": "a_binder_fundamentals",
+              "title": "Binder Fundamentals",
+              "path": "content/e_phase/b_IPC_and_System_Communication/a_Binder_Fundamentals/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_aidl_basics",
+              "title": "AIDL Basics",
+              "path": "content/e_phase/b_IPC_and_System_Communication/b_AIDL_Basics/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_when_ipc_matters",
+              "title": "When IPC Matters",
+              "path": "content/e_phase/b_IPC_and_System_Communication/c_When_IPC_Matters/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "c_memory_and_performance",
+          "title": "Memory And Performance",
+          "subtopics": [
+            {
+              "id": "a_java_kotlin_heap",
+              "title": "Java Kotlin Heap",
+              "path": "content/e_phase/c_Memory_and_Performance/a_Java_Kotlin_Heap/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_native_heap",
+              "title": "Native Heap",
+              "path": "content/e_phase/c_Memory_and_Performance/b_Native_Heap/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_stack_vs_heap",
+              "title": "Stack Vs Heap",
+              "path": "content/e_phase/c_Memory_and_Performance/c_Stack_vs_Heap/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_garbage_collection_behavior",
+              "title": "Garbage Collection Behavior",
+              "path": "content/e_phase/c_Memory_and_Performance/d_Garbage_Collection_Behavior/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_memory_leaks_and_reference_chains",
+              "title": "Memory Leaks And Reference Chains",
+              "path": "content/e_phase/c_Memory_and_Performance/e_Memory_Leaks_and_Reference_Chains/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "d_anrs_and_system_constraints",
+          "title": "ANRs And System Constraints",
+          "subtopics": [
+            {
+              "id": "a_input_dispatch_timeout",
+              "title": "Input Dispatch Timeout",
+              "path": "content/e_phase/d_ANRs_and_System_Constraints/a_Input_Dispatch_Timeout/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_broadcast_timeout",
+              "title": "Broadcast Timeout",
+              "path": "content/e_phase/d_ANRs_and_System_Constraints/b_Broadcast_Timeout/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_service_timeout",
+              "title": "Service Timeout",
+              "path": "content/e_phase/d_ANRs_and_System_Constraints/c_Service_Timeout/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_power_management",
+              "title": "Power Management",
+              "path": "content/e_phase/d_ANRs_and_System_Constraints/d_Power_Management/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_background_restrictions_across_android_versions",
+              "title": "Background Restrictions Across Android Versions",
+              "path": "content/e_phase/d_ANRs_and_System_Constraints/e_Background_Restrictions_Across_Android_Versions/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f_phase",
+      "title": "Phase",
+      "order": 6,
+      "topics": [
+        {
+          "id": "a_performance_optimization",
+          "title": "Performance Optimization",
+          "subtopics": [
+            {
+              "id": "a_startup_optimization_cold_warm_hot",
+              "title": "Startup Optimization Cold Warm Hot",
+              "path": "content/f_phase/a_Performance_Optimization/a_Startup_Optimization_Cold_Warm_Hot/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_frame_rendering_and_jank",
+              "title": "Frame Rendering And Jank",
+              "path": "content/f_phase/a_Performance_Optimization/b_Frame_Rendering_and_Jank/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_layout_overdraw",
+              "title": "Layout Overdraw",
+              "path": "content/f_phase/a_Performance_Optimization/c_Layout_Overdraw/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_threading_issues",
+              "title": "Threading Issues",
+              "path": "content/f_phase/a_Performance_Optimization/d_Threading_Issues/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_network_and_disk_bottlenecks",
+              "title": "Network And Disk Bottlenecks",
+              "path": "content/f_phase/a_Performance_Optimization/e_Network_and_Disk_Bottlenecks/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_debugging_and_profiling",
+          "title": "Debugging And Profiling",
+          "subtopics": [
+            {
+              "id": "a_android_studio_profiler",
+              "title": "Android Studio Profiler",
+              "path": "content/f_phase/b_Debugging_and_Profiling/a_Android_Studio_Profiler/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_leakcanary_deep_usage",
+              "title": "LeakCanary Deep Usage",
+              "path": "content/f_phase/b_Debugging_and_Profiling/b_LeakCanary_Deep_Usage/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_strictmode",
+              "title": "StrictMode",
+              "path": "content/f_phase/b_Debugging_and_Profiling/c_StrictMode/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_systrace_and_perfetto",
+              "title": "Systrace And Perfetto",
+              "path": "content/f_phase/b_Debugging_and_Profiling/d_Systrace_and_Perfetto/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_logcat_analysis_at_scale",
+              "title": "Logcat Analysis At Scale",
+              "path": "content/f_phase/b_Debugging_and_Profiling/e_Logcat_Analysis_at_Scale/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "c_app_size_and_build_optimization",
+          "title": "App Size And Build Optimization",
+          "subtopics": [
+            {
+              "id": "a_apk_vs_aab",
+              "title": "APK Vs AAB",
+              "path": "content/f_phase/c_App_Size_and_Build_Optimization/a_APK_vs_AAB/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_r8_and_proguard_rules",
+              "title": "R8 And ProGuard Rules",
+              "path": "content/f_phase/c_App_Size_and_Build_Optimization/b_R8_and_ProGuard_Rules/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_resource_shrinking",
+              "title": "Resource Shrinking",
+              "path": "content/f_phase/c_App_Size_and_Build_Optimization/c_Resource_Shrinking/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_abi_splits",
+              "title": "ABI Splits",
+              "path": "content/f_phase/c_App_Size_and_Build_Optimization/d_ABI_Splits/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g_phase",
+      "title": "Phase",
+      "order": 7,
+      "topics": [
+        {
+          "id": "a_testing_strategy",
+          "title": "Testing Strategy",
+          "subtopics": [
+            {
+              "id": "a_unit_tests_viewmodels_and_business_logic",
+              "title": "Unit Tests ViewModels And Business Logic",
+              "path": "content/g_phase/a_Testing_Strategy/a_Unit_Tests_ViewModels_and_Business_Logic/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_integration_tests",
+              "title": "Integration Tests",
+              "path": "content/g_phase/a_Testing_Strategy/b_Integration_Tests/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_ui_tests",
+              "title": "UI Tests",
+              "path": "content/g_phase/a_Testing_Strategy/c_UI_Tests/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_fake_vs_mock_vs_stub",
+              "title": "Fake Vs Mock Vs Stub",
+              "path": "content/g_phase/a_Testing_Strategy/d_Fake_vs_Mock_vs_Stub/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_flaky_test_mitigation",
+              "title": "Flaky Test Mitigation",
+              "path": "content/g_phase/a_Testing_Strategy/e_Flaky_Test_Mitigation/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_ci_cd",
+          "title": "CI CD",
+          "subtopics": [
+            {
+              "id": "a_gradle_task_optimization",
+              "title": "Gradle Task Optimization",
+              "path": "content/g_phase/b_CI_CD/a_Gradle_Task_Optimization/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_test_automation",
+              "title": "Test Automation",
+              "path": "content/g_phase/b_CI_CD/b_Test_Automation/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_build_variants_for_ci",
+              "title": "Build Variants For CI",
+              "path": "content/g_phase/b_CI_CD/c_Build_Variants_for_CI/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_release_pipelines",
+              "title": "Release Pipelines",
+              "path": "content/g_phase/b_CI_CD/d_Release_Pipelines/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "h_phase",
+      "title": "Phase",
+      "order": 8,
+      "topics": [
+        {
+          "id": "a_gradle_advanced",
+          "title": "Gradle Advanced",
+          "subtopics": [
+            {
+              "id": "a_build_lifecycle",
+              "title": "Build Lifecycle",
+              "path": "content/h_phase/a_Gradle_Advanced/a_Build_Lifecycle/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_custom_tasks",
+              "title": "Custom Tasks",
+              "path": "content/h_phase/a_Gradle_Advanced/b_Custom_Tasks/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_build_caching",
+              "title": "Build Caching",
+              "path": "content/h_phase/a_Gradle_Advanced/c_Build_Caching/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_build_scans",
+              "title": "Build Scans",
+              "path": "content/h_phase/a_Gradle_Advanced/d_Build_Scans/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_plugin_development_basics",
+              "title": "Plugin Development Basics",
+              "path": "content/h_phase/a_Gradle_Advanced/e_Plugin_Development_Basics/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_kotlin_dsl",
+          "title": "Kotlin DSL",
+          "subtopics": [
+            {
+              "id": "a_migration_from_groovy",
+              "title": "Migration From Groovy",
+              "path": "content/h_phase/b_Kotlin_DSL/a_Migration_from_Groovy/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_typesafe_accessors",
+              "title": "TypeSafe Accessors",
+              "path": "content/h_phase/b_Kotlin_DSL/b_TypeSafe_Accessors/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_multimodule_configuration",
+              "title": "MultiModule Configuration",
+              "path": "content/h_phase/b_Kotlin_DSL/c_MultiModule_Configuration/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "c_native_interop",
+          "title": "Native Interop",
+          "subtopics": [
+            {
+              "id": "a_jni_basics",
+              "title": "JNI Basics",
+              "path": "content/h_phase/c_Native_Interop/a_JNI_Basics/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_ndk_integration",
+              "title": "NDK Integration",
+              "path": "content/h_phase/c_Native_Interop/b_NDK_Integration/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_c_cpp_performance_use_cases",
+              "title": "C Cpp Performance Use Cases",
+              "path": "content/h_phase/c_Native_Interop/c_C_Cpp_Performance_Use_Cases/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "i_phase",
+      "title": "Phase",
+      "order": 9,
+      "topics": [
+        {
+          "id": "a_security",
+          "title": "Security",
+          "subtopics": [
+            {
+              "id": "a_secure_storage",
+              "title": "Secure Storage",
+              "path": "content/i_phase/a_Security/a_Secure_Storage/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_encryption",
+              "title": "Encryption",
+              "path": "content/i_phase/a_Security/b_Encryption/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_certificate_pinning",
+              "title": "Certificate Pinning",
+              "path": "content/i_phase/a_Security/c_Certificate_Pinning/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_biometricprompt",
+              "title": "BiometricPrompt",
+              "path": "content/i_phase/a_Security/d_BiometricPrompt/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_protecting_secrets",
+              "title": "Protecting Secrets",
+              "path": "content/i_phase/a_Security/e_Protecting_Secrets/README.md",
+              "examples": []
+            }
+          ]
+        },
+        {
+          "id": "b_app_distribution",
+          "title": "App Distribution",
+          "subtopics": [
+            {
+              "id": "a_play_console_workflows",
+              "title": "Play Console Workflows",
+              "path": "content/i_phase/b_App_Distribution/a_Play_Console_Workflows/README.md",
+              "examples": []
+            },
+            {
+              "id": "b_signing_configs",
+              "title": "Signing Configs",
+              "path": "content/i_phase/b_App_Distribution/b_Signing_Configs/README.md",
+              "examples": []
+            },
+            {
+              "id": "c_rollouts_and_staged_releases",
+              "title": "Rollouts And Staged Releases",
+              "path": "content/i_phase/b_App_Distribution/c_Rollouts_and_Staged_Releases/README.md",
+              "examples": []
+            },
+            {
+              "id": "d_crash_monitoring",
+              "title": "Crash Monitoring",
+              "path": "content/i_phase/b_App_Distribution/d_Crash_Monitoring/README.md",
+              "examples": []
+            },
+            {
+              "id": "e_production_incident_handling",
+              "title": "Production Incident Handling",
+              "path": "content/i_phase/b_App_Distribution/e_Production_Incident_Handling/README.md",
+              "examples": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "j_phase",
+      "title": "Phase",
+      "order": 10,
+      "topics": [
+        {
+          "id": "a_technical_decision_making",
+          "title": "Technical Decision Making",
+          "subtopics": []
+        },
+        {
+          "id": "b_trade_off_analysis",
+          "title": "Trade Off Analysis",
+          "subtopics": []
+        },
+        {
+          "id": "c_codebase_evolution_and_refactoring",
+          "title": "Codebase Evolution And Refactoring",
+          "subtopics": []
+        },
+        {
+          "id": "d_legacy_system_migration",
+          "title": "Legacy System Migration",
+          "subtopics": []
+        },
+        {
+          "id": "e_mentoring_developers",
+          "title": "Mentoring Developers",
+          "subtopics": []
+        },
+        {
+          "id": "f_writing_technical_documentation",
+          "title": "Writing Technical Documentation",
+          "subtopics": []
+        },
+        {
+          "id": "g_owning_features_end_to_end",
+          "title": "Owning Features End To End",
+          "subtopics": []
+        }
+      ]
+    }
+  ]
+}
