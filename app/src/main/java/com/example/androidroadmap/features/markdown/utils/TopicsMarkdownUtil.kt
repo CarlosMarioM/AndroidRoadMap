@@ -1,53 +1,50 @@
 package com.example.androidroadmap.features.markdown.utils
 
-import com.example.androidroadmap.model.Topic
-import com.example.androidroadmap.model.TopicId
 import android.content.Context
 import android.util.Log
-import kotlinx.serialization.builtins.ListSerializer
+import com.example.androidroadmap.model.Topic
+import com.example.androidroadmap.model.TopicsRoot
 import kotlinx.serialization.json.Json
 
 class TopicsMarkdownUtil {
+
     companion object {
-        private var topics : List<Topic> = listOf()
+        private var root: TopicsRoot? = null
     }
 
-    fun readMarkdown(context: Context, path: String): String {
-        return try {
+    fun readMarkdown(context: Context, path: String): String =
+        try {
             context.assets.open(path)
                 .bufferedReader()
                 .use { it.readText() }
         } catch (e: Exception) {
             throw IllegalStateException("Markdown not found: $path", e)
         }
+
+    fun readTopics(context: Context): TopicsRoot {
+        if (root != null) return root!!
+
+        val json = context.assets
+            .open("content/topics_list.json")
+            .bufferedReader()
+            .use { it.readText() }
+
+        root = Json {
+            ignoreUnknownKeys = true
+        }.decodeFromString(TopicsRoot.serializer(), json)
+
+        return root!!
     }
 
-    fun readTopics(context: Context): List<Topic> {
-      try {
-          val json = context.assets
-              .open("content/phases.json")
-              .bufferedReader()
-              .use { it.readText() }
+    fun findTopicById(id: String): Topic? {
+        val data = root ?: error("Topics not loaded. Call readTopics() first.")
 
-          val list : List<Topic> = Json.decodeFromString(ListSerializer(Topic.serializer()), json)
-          topics += list
-          return topics
-      }catch (e : Exception){
-          println(e)
-          return listOf<Topic>()
-      }
-    }
-
-    fun readMarkdownFromTopicId(id: TopicId): Topic? {
-        if (topics.isEmpty()) throw NotImplementedError("Topics is Empty")
-
-        val topic = topics.find {
-            it.id.toString() == id.id// ensure string comparison
-        }
+        val topic = data.phases
+            .flatMap { it.topics }
+            .find { it.id == id }
 
         if (topic == null) {
             Log.d("TopicLookup", "No topic found for id: $id")
-            topics.forEach { Log.d("TopicLookup", "Existing topic id: ${it.id}") }
         }
 
         return topic

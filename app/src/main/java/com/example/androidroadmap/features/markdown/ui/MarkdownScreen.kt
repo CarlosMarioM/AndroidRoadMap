@@ -22,8 +22,6 @@ import androidx.core.graphics.toColorInt
 fun MarkdownScreen(markdown: String) {
     val context = LocalContext.current
 
-
-
     val markwon = remember(context) {
         Markwon.builder(context)
             .usePlugin(object : AbstractMarkwonPlugin() {

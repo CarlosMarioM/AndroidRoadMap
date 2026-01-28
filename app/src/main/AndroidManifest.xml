@@ -39,6 +39,18 @@
             android:label="TopicsActivity"
             android:theme="@style/Theme.AndroidRoadMap">
         </activity>
+        <activity
+            android:name=".features.topics.SubtopicsActivity"
+            android:exported="true"
+            android:label="SubtopicsActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
+            android:name=".features.markdown.MarkdownActivity"
+            android:exported="true"
+            android:label="MarkdownActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
     </application>
 
 </manifest>
