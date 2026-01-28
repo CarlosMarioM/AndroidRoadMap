@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.androidroadmap.topics">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -26,7 +24,7 @@
         </receiver>
 
         <activity
-            android:name="a_phase.d_Android_Manifest_and_App_Configuration.a_Permissions.examples.PermissionsExampleActivity"
+            android:name="com.example.androidroadmap.a_phase.d_Android_Manifest_and_App_Configuration.a_Permissions.examples.PermissionsExampleActivity"
             android:exported="true"
             android:label="Permissions Example" >
             <intent-filter>
