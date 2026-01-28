@@ -8,20 +8,20 @@ import com.example.androidroadmap.ui.theme.PurpleAccent
 import com.example.androidroadmap.ui.theme.TealAccent
 
 @Composable
-fun RoadMapAppTheme( view : @Composable () -> Unit = {}) {
-    MaterialTheme (
-        colorScheme = MaterialTheme
-            .colorScheme.copy(
-                primary = TealAccent,
-                secondary = OrangeAccent,
-                inversePrimary = PurpleAccent
-            )
-    ){
+fun RoadMapAppTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = MaterialTheme.colorScheme.copy(
+            primary = TealAccent,
+            secondary = OrangeAccent,
+            inversePrimary = OrangeAccent
+
+        )
+    ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            view()
+            content()
         }
     }
 }

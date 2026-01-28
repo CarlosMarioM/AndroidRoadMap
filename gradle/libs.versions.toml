@@ -26,7 +26,11 @@ room = "2.6.1" # Added for Room Persistence Library
 monitor = "1.7.2"
 junitKtx = "1.2.1"
 navigationCompose = "2.8.8"
-material3 = "1.4.0" # Matches Kotlin 2.0.0
+material3 = "1.4.0"
+uiToolingPreview = "1.10.1"
+uiTooling = "1.10.1"
+foundationLayout = "1.10.1"
+composeMaterial = "1.5.6" # Matches Kotlin 2.0.0
 
 [libraries]
 # --- Android Core ---
@@ -73,6 +77,10 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 # --- Kotlin Coroutines ---
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
+androidx-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "composeMaterial" }
 
 
 

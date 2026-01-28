@@ -12,11 +12,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            RoadMapAppTheme (view = {
+            RoadMapAppTheme {
                 LandingScreen(
                     appName = "AndroidRoadMap.kt",
                 )
-            })
+            }
         }
     }
 }

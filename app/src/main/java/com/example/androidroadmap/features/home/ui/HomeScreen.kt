@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androidroadmap.features.examples.ExamplesActivity
 import com.example.androidroadmap.features.index.IndexActivity
 import com.example.androidroadmap.ui.theme.BackgroundDark
 import com.example.androidroadmap.ui.theme.TextPrimary
@@ -33,7 +34,9 @@ fun HomeScreen(){
         Route(0, "Index", onClick = {
             context.startActivity(Intent(context, IndexActivity::class.java))
         }),
-        Route(1, "Examples",onClick =  {}),
+        Route(1, "Examples",onClick =  {
+            context.startActivity(Intent(context, ExamplesActivity::class.java))
+        }),
         Route(2, "Practices",onClick =  {}),
         Route(3, "Challenges", onClick = {})
 
