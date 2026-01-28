@@ -63,8 +63,7 @@ operator fun List<String>.contains(element: String): Boolean {
 fun main() {
     println("--- Operator Overloading Examples ---")
 
-    // --- a_phase.a_Kotlin_Language_Mastery.h_Operator_Overloading.examples.Point Class Operators ---
-    println("\n--- a_phase.a_Kotlin_Language_Mastery.h_Operator_Overloading.examples.Point Class Operators ---")
+    println("\n---Point Class Operators ---")
     val p1 = Point(10, 20)
     val p2 = Point(5, 3)
 
@@ -79,7 +78,7 @@ fun main() {
     println("p1 > p2: ${p1 > p2}") // Uses compareTo
 
     // --- a_phase.a_Kotlin_Language_Mastery.h_Operator_Overloading.examples.Matrix Indexing Operators ---
-    println("\n--- a_phase.a_Kotlin_Language_Mastery.h_Operator_Overloading.examples.Matrix Indexing Operators ---")
+    println("\n--- Matrix Indexing Operators ---")
     val matrix = Matrix(2, 3)
     matrix[0, 0] = 1
     matrix[0, 1] = 2
@@ -87,7 +86,7 @@ fun main() {
     matrix[1, 0] = 4
     matrix[1, 1] = 5
     matrix[1, 2] = 6
-    println("a_phase.a_Kotlin_Language_Mastery.h_Operator_Overloading.examples.Matrix:\n$matrix")
+    println("Matrix:\n$matrix")
     println("matrix[0, 1] = ${matrix[0, 1]}")
 
     // --- Custom 'in' operator ---

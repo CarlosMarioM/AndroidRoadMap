@@ -55,8 +55,6 @@ class MyViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() 
 }
 
 
-
-// --- Conceptual Activity --- (This comment will be removed by the replacement)
 class MyActivity : AppCompatActivity() {
     private lateinit var myViewModel: MyViewModel
     private lateinit var lifecycleCounterText: TextView

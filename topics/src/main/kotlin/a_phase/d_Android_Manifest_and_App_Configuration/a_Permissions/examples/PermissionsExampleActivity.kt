@@ -6,11 +6,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
+
 class PermissionsExampleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            RoadMapAppTheme (view = { LocationPermissionScreen()})
+            RoadMapAppTheme {
+                LocationPermissionScreen()
+            }
         }
     }
 }
