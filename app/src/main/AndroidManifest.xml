@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".HiltApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,27 +29,21 @@
             android:theme="@style/Theme.AndroidRoadMap">
         </activity>
         <activity
-            android:name=".features.index.IndexActivity"
+            android:name=".features.content_list.ContentListActivity"
             android:exported="true"
-            android:label="IndexActivity"
-            android:theme="@style/Theme.AndroidRoadMap">
-        </activity>
-        <activity
-            android:name=".features.topics.TopicsActivity"
-            android:exported="true"
-            android:label="TopicsActivity"
-            android:theme="@style/Theme.AndroidRoadMap">
-        </activity>
-        <activity
-            android:name=".features.topics.SubtopicsActivity"
-            android:exported="true"
-            android:label="SubtopicsActivity"
+            android:label="ContentListActivity"
             android:theme="@style/Theme.AndroidRoadMap">
         </activity>
         <activity
             android:name=".features.markdown.MarkdownActivity"
             android:exported="true"
             android:label="MarkdownActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
+            android:name=".features.roadmap_progress.RoadmapActivity"
+            android:exported="false"
+            android:label="RoadmapActivity"
             android:theme="@style/Theme.AndroidRoadMap">
         </activity>
     </application>

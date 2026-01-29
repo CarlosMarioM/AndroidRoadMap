@@ -2,184 +2,42 @@
   {
     "id": "kotlin_syntax_and_idioms",
     "title": "Kotlin Syntax and Idioms",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/a_Kotlin_Syntax_and_Idioms/README.md",
-    "examples": [
-      {
-        "id": "basic_syntax",
-        "title": "Basic Kotlin Syntax Example",
-        "description": "Demonstrates the functionality of Basic Kotlin Syntax.",
-        "contentKey": "BasicSyntaxComposable"
-      },
-      {
-        "id": "classes_and_constructors",
-        "title": "Classes And Constructors Example",
-        "description": "Demonstrates the functionality of Classes And Constructors.",
-        "contentKey": "ClassesAndConstructorsComposable"
-      },
-      {
-        "id": "collections",
-        "title": "Collections Example",
-        "description": "Demonstrates the functionality of Collections.",
-        "contentKey": "CollectionsComposable"
-      },
-      {
-        "id": "companion_objects",
-        "title": "Companion Objects Example",
-        "description": "Demonstrates the functionality of Companion Objects.",
-        "contentKey": "CompanionObjectsComposable"
-      },
-      {
-        "id": "control_flow",
-        "title": "Control Flow Example",
-        "description": "Demonstrates the functionality of Control Flow.",
-        "contentKey": "ControlFlowComposable"
-      },
-      {
-        "id": "data_classes",
-        "title": "Data Classes Example",
-        "description": "Demonstrates the functionality of Data Classes.",
-        "contentKey": "DataClassesComposable"
-      },
-      {
-        "id": "destructuring",
-        "title": "Destructuring Example",
-        "description": "Demonstrates the functionality of Destructuring.",
-        "contentKey": "DestructuringComposable"
-      },
-      {
-        "id": "equality",
-        "title": "Equality Example",
-        "description": "Demonstrates the functionality of Equality.",
-        "contentKey": "EqualityComposable"
-      },
-      {
-        "id": "extension_functions",
-        "title": "Extension Functions Example",
-        "description": "Demonstrates the functionality of Extension Functions.",
-        "contentKey": "ExtensionFunctionsComposable"
-      },
-      {
-        "id": "inheritance",
-        "title": "Inheritance Example",
-        "description": "Demonstrates the functionality of Inheritance.",
-        "contentKey": "InheritanceComposable"
-      },
-      {
-        "id": "null_safety",
-        "title": "Null Safety Example",
-        "description": "Demonstrates the functionality of Null Safety.",
-        "contentKey": "NullSafetyComposable"
-      },
-      {
-        "id": "scope_functions",
-        "title": "Scope Functions Example",
-        "description": "Demonstrates the functionality of Scope Functions.",
-        "contentKey": "ScopeFunctionsComposable"
-      },
-      {
-        "id": "sealed_classes",
-        "title": "Sealed Classes Example",
-        "description": "Demonstrates the functionality of Sealed Classes.",
-        "contentKey": "SealedClassesComposable"
-      },
-      {
-        "id": "top_level",
-        "title": "Top Level Example",
-        "description": "Demonstrates the functionality of Top Level.",
-        "contentKey": "TopLevelComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/a_Kotlin_Syntax_and_Idioms/README.md"
   },
   {
     "id": "null_safety_and_platform_types",
     "title": "Null safety and Platform types",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/b_Null_safety_and_Platform_types/README.md",
-    "examples": [
-      {
-        "id": "null_safety_advanced",
-        "title": "Null Safety Advanced Example",
-        "description": "Demonstrates the functionality of Null Safety Advanced.",
-        "contentKey": "NullSafetyAdvancedComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/b_Null_safety_and_Platform_types/README.md"
   },
   {
     "id": "data_classes_vs_sealed_classes_vs_value_classes",
     "title": "Data Classes vs Sealed Classes vs Value Classes",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/c_Data_Classes_vs_Sealed_Classes_vs_Value_Classes/README.md",
-    "examples": [
-      {
-        "id": "data_sealed_value_classes",
-        "title": "Data Sealed Value Classes Example",
-        "description": "Demonstrates the functionality of Data Sealed Value Classes.",
-        "contentKey": "DataSealedValueClassesComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/c_Data_Classes_vs_Sealed_Classes_vs_Value_Classes/README.md"
   },
   {
     "id": "sealed_interfaces",
     "title": "Sealed Interfaces",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/d_Sealed_Interfaces/README.md",
-    "examples": [
-      {
-        "id": "sealed_interfaces",
-        "title": "Sealed Interfaces Example",
-        "description": "Demonstrates the functionality of Sealed Interfaces.",
-        "contentKey": "SealedInterfacesComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/d_Sealed_Interfaces/README.md"
   },
   {
     "id": "inline_functions_and_reified_generics",
     "title": "Inline Functions and Reified Generics",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/e_Inline_Functions_and_Reified_Generics/README.md",
-    "examples": [
-      {
-        "id": "inline_functions",
-        "title": "Inline Functions Example",
-        "description": "Demonstrates the functionality of Inline Functions.",
-        "contentKey": "InlineFunctionsComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/e_Inline_Functions_and_Reified_Generics/README.md"
   },
   {
     "id": "lambdas_and_higher_order_functions",
     "title": "Lambdas and Higher order functions",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/f_Lambdas_and_Higher_order_functions/README.md",
-    "examples": [
-      {
-        "id": "lambdas",
-        "title": "Lambdas Example",
-        "description": "Demonstrates the functionality of Lambdas.",
-        "contentKey": "LambdasComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/f_Lambdas_and_Higher_order_functions/README.md"
   },
   {
     "id": "collections_and_immutability",
     "title": "Collections and Immutability",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/g_Collections_and_Immutability/README.md",
-    "examples": [
-      {
-        "id": "collections_immutability",
-        "title": "Collections Immutability Example",
-        "description": "Demonstrates the functionality of Collections Immutability.",
-        "contentKey": "CollectionsImmutabilityComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/g_Collections_and_Immutability/README.md"
   },
   {
     "id": "operator_overloading",
     "title": "Operator Overloading",
-    "path": "content/a_phase/a_Kotlin_Language_Mastery/h_Operator_Overloading/README.md",
-    "examples": [
-      {
-        "id": "operator_overloading",
-        "title": "Operator Overloading Example",
-        "description": "Demonstrates the functionality of Operator Overloading.",
-        "contentKey": "OperatorOverloadingComposable"
-      }
-    ]
+    "path": "content/a_phase/a_Kotlin_Language_Mastery/h_Operator_Overloading/README.md"
   },
   {
     "id": "coroutines_fundamentals",
@@ -189,164 +47,62 @@
   {
     "id": "suspend_functions",
     "title": "Suspend Functions",
-    "path": "content/a_phase/b_Coroutines_Fundamentals/a_Suspend_Functions/README.md",
-    "examples": [
-      {
-        "id": "suspend_functions",
-        "title": "Suspend Functions Example",
-        "description": "Demonstrates the functionality of Suspend Functions.",
-        "contentKey": "SuspendFunctionsComposable"
-      }
-    ]
+    "path": "content/a_phase/b_Coroutines_Fundamentals/a_Suspend_Functions/README.md"
   },
   {
     "id": "coroutine_scopes_and_lifecycle_awareness",
     "title": "Coroutine Scopes and Lifecycle Awareness",
-    "path": "content/a_phase/b_Coroutines_Fundamentals/b_Coroutine_Scopes_and_Lifecycle_Awareness/README.md",
-    "examples": [
-      {
-        "id": "coroutine_scopes",
-        "title": "Coroutine Scopes Example",
-        "description": "Demonstrates the functionality of Coroutine Scopes.",
-        "contentKey": "CoroutineScopesComposable"
-      }
-    ]
+    "path": "content/a_phase/b_Coroutines_Fundamentals/b_Coroutine_Scopes_and_Lifecycle_Awareness/README.md"
   },
   {
     "id": "dispatchers",
     "title": "Dispatchers",
-    "path": "content/a_phase/b_Coroutines_Fundamentals/c_Dispatchers/README.md",
-    "examples": [
-      {
-        "id": "dispatchers",
-        "title": "Dispatchers Example",
-        "description": "Demonstrates the functionality of Dispatchers.",
-        "contentKey": "DispatchersComposable"
-      }
-    ]
+    "path": "content/a_phase/b_Coroutines_Fundamentals/c_Dispatchers/README.md"
   },
   {
     "id": "structured_concurrency",
     "title": "Structured Concurrency",
-    "path": "content/a_phase/b_Coroutines_Fundamentals/d_Structured_Concurrency/README.md",
-    "examples": [
-      {
-        "id": "structured_concurrency",
-        "title": "Structured Concurrency Example",
-        "description": "Demonstrates the functionality of Structured Concurrency.",
-        "contentKey": "StructuredConcurrencyComposable"
-      }
-    ]
+    "path": "content/a_phase/b_Coroutines_Fundamentals/d_Structured_Concurrency/README.md"
   },
   {
     "id": "cancellation_and_cooperative_cancellation",
     "title": "Cancellation and Cooperative Cancellation",
-    "path": "content/a_phase/b_Coroutines_Fundamentals/e_Cancellation_and_Cooperative_Cancellation/README.md",
-    "examples": [
-      {
-        "id": "cancellation",
-        "title": "Cancellation Example",
-        "description": "Demonstrates the functionality of Cancellation.",
-        "contentKey": "CancellationComposable"
-      }
-    ]
+    "path": "content/a_phase/b_Coroutines_Fundamentals/e_Cancellation_and_Cooperative_Cancellation/README.md"
   },
   {
     "id": "exception_propagation_in_coroutines",
     "title": "Exception Propagation in Coroutines",
-    "path": "content/a_phase/b_Coroutines_Fundamentals/f_Exception_Propagation_in_Coroutines/README.md",
-    "examples": [
-      {
-        "id": "exception_propagation",
-        "title": "Exception Propagation Example",
-        "description": "Demonstrates the functionality of Exception Propagation.",
-        "contentKey": "ExceptionPropagationComposable"
-      }
-    ]
+    "path": "content/a_phase/b_Coroutines_Fundamentals/f_Exception_Propagation_in_Coroutines/README.md"
   },
   {
     "id": "activities",
     "title": "Activities",
-    "path": "content/a_phase/c_Android_Core_Components/a_Activities/README.md",
-    "examples": [
-      {
-        "id": "activity_lifecycle",
-        "title": "Activity Lifecycle Example",
-        "description": "Illustrates the different states and callbacks of an Android Activity lifecycle.",
-        "contentKey": "ActivityLifecycleExampleComposable"
-      }
-    ]
+    "path": "content/a_phase/c_Android_Core_Components/a_Activities/README.md"
   },
   {
     "id": "fragments",
     "title": "Fragments",
-    "path": "content/a_phase/c_Android_Core_Components/b_Fragments/README.md",
-    "examples": [
-      {
-        "id": "fragment_lifecycle",
-        "title": "Fragment Lifecycle Example",
-        "description": "Demonstrates the functionality of Fragment Lifecycle.",
-        "contentKey": "FragmentLifecycleComposable"
-      }
-    ]
+    "path": "content/a_phase/c_Android_Core_Components/b_Fragments/README.md"
   },
   {
     "id": "services",
     "title": "Services",
-    "path": "content/a_phase/c_Android_Core_Components/c_Services/README.md",
-    "examples": [
-      {
-        "id": "service",
-        "title": "Service Example",
-        "description": "Demonstrates the functionality of Service.",
-        "contentKey": "ServiceComposable"
-      }
-    ]
+    "path": "content/a_phase/c_Android_Core_Components/c_Services/README.md"
   },
   {
     "id": "broadcastreceivers",
     "title": "BroadcastReceivers",
-    "path": "content/a_phase/c_Android_Core_Components/d_BroadcastReceivers/README.md",
-    "examples": [
-      {
-        "id": "broadcast_receiver",
-        "title": "Broadcast Receiver Example",
-        "description": "Demonstrates the functionality of Broadcast Receiver.",
-        "contentKey": "BroadcastReceiverComposable"
-      }
-    ]
+    "path": "content/a_phase/c_Android_Core_Components/d_BroadcastReceivers/README.md"
   },
   {
     "id": "contentproviders",
     "title": "ContentProviders",
-    "path": "content/a_phase/c_Android_Core_Components/f_ContentProviders/README.md",
-    "examples": [
-      {
-        "id": "content_provider",
-        "title": "Content Provider Example",
-        "description": "Demonstrates the functionality of Content Provider.",
-        "contentKey": "ContentProviderComposable"
-      }
-    ]
+    "path": "content/a_phase/c_Android_Core_Components/f_ContentProviders/README.md"
   },
   {
     "id": "permissions",
     "title": "Permissions",
-    "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/a_Permissions/README.md",
-    "examples": [
-      {
-        "id": "permissions_activity",
-        "title": "Permissions Activity Example",
-        "description": "Demonstrates the functionality of Permissions Activity.",
-        "contentKey": "PermissionsActivityComposable"
-      },
-      {
-        "id": "location_permission_screen",
-        "title": "Location Permission Screen Example",
-        "description": "Demonstrates the functionality of Location Permission Screen.",
-        "contentKey": "LocationPermissionScreenComposable"
-      }
-    ]
+    "path": "content/a_phase/d_Android_Manifest_and_App_Configuration/a_Permissions/README.md"
   },
   {
     "id": "runtime_permissions_flow",

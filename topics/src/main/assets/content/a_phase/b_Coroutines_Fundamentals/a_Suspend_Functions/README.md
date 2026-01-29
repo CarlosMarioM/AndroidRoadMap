@@ -135,6 +135,19 @@ coroutineScope {
 
 `suspend` enables concurrency — it does not create it.
 
+## CoroutineScope and launch vs async
+
+- `launch` returns `Job`, used for fire-and-forget work.
+- `async` returns `Deferred<T>`, used for concurrent work that produces a result.
+- Always prefer structured concurrency (`coroutineScope`) over `GlobalScope`.
+
+```kotlin
+coroutineScope {
+    val job = launch { doWork() }       // fire-and-forget
+    val deferred = async { fetchData() } // returns a result
+    val result = deferred.await()       // wait for completion
+}
+
 ---
 
 ## Dispatchers and context switching
@@ -158,7 +171,46 @@ Rules:
 
 Never guess. Never rely on defaults in libraries.
 
+
 ---
+
+### **2. Dispatchers and context nuance**
+
+```markdown
+## Dispatchers and context nuances
+
+- `suspend` does **not** select a thread; the scope/dispatcher does.
+- Use Dispatcher according to work type:
+  - CPU → `Dispatchers.Default`
+  - Blocking IO → `Dispatchers.IO`
+  - UI → `Dispatchers.Main`
+- Avoid `Dispatchers.Unconfined` unless fully understood.
+- Context switching has overhead; avoid excessive tiny suspends.
+
+```kotlin
+withContext(Dispatchers.IO) { readFromDisk() }
+
+---
+
+
+### **3. Exceptions in suspend functions**
+
+```markdown
+## Exceptions in suspend functions
+
+- `CancellationException` must propagate to allow cooperative cancellation.
+- `try/catch` works for handling errors, but swallowing all exceptions breaks cancellation.
+- Exceptions in `async` propagate only when `await()` is called.
+
+```kotlin
+try {
+    val data = withContext(Dispatchers.IO) { fetchData() }
+} catch (e: CancellationException) {
+    throw e  // always propagate
+} catch (e: Exception) {
+    logError(e)
+}
+
 
 ## Cancellation behavior (critical)
 
@@ -188,6 +240,27 @@ suspend fun busyLoop() = coroutineScope {
 
 If your suspend function ignores cancellation, it’s hostile.
 
+
+---
+
+### **4. Composing suspend functions**
+
+```markdown
+## Composing suspend functions
+
+- Combine multiple suspend functions using `async` + `await` or `awaitAll()`.
+- Allows sequential-looking code to run concurrently.
+
+```kotlin
+coroutineScope {
+    val results = listOf(
+        async { fetchA() },
+        async { fetchB() },
+        async { fetchC() }
+    ).awaitAll()
+}
+
+
 ---
 
 ## Designing good suspend APIs
@@ -207,6 +280,22 @@ Bad signs:
 A suspend function should **describe work**, not manage lifetimes.
 
 ---
+
+### **5. Testing suspend functions**
+
+```markdown
+## Testing suspend functions
+
+- Use `kotlinx.coroutines.test.runTest` for coroutine testing.
+- Control virtual time to test delays, timeouts, and retries.
+
+```kotlin
+@Test
+fun testFetchUser() = runTest {
+    val user = fetchUser()
+    assertEquals("Alice", user.name)
+}
+
 
 ## Common mistakes (real-world)
 
@@ -249,4 +338,109 @@ Not magic.
 If you misuse `suspend`, your code still compiles — but your architecture rots silently.
 
 That’s why this topic separates seniors from everyone else.
+
+
+---
+
+### **6. Android-specific best practices**
+
+```markdown
+## Android-specific suspend guidelines
+
+- Launch coroutines in lifecycle-aware scopes:
+  - `viewModelScope` in ViewModel
+  - `lifecycleScope` in Activity/Fragment
+- Avoid leaking coroutines outside the scope.
+- Combine `suspend` functions with Flow for reactive streams.
+- Always choose the proper dispatcher:
+  - UI work → `Dispatchers.Main`
+  - Network/disk → `Dispatchers.IO`
+
+```kotlin
+viewModelScope.launch {
+    val data = withContext(Dispatchers.IO) { repository.loadData() }
+    updateUI(data)
+}
+
+
+---
+
+### **7. When NOT to use `suspend`**
+
+```markdown
+## When NOT to use suspend
+
+Do not mark a function `suspend` if:
+- It is purely CPU-bound and synchronous.
+- It never calls another suspend function.
+- Low-level utility code where overhead is unnecessary.
+
+`suspend` is a contract; do not lie.
+
+## Android Suspend Functions Cheat Sheet
+     ┌───────────────────────┐
+     │   suspend function    │
+     │ describes work, not   │
+     │ lifetimes             │
+     └─────────┬─────────────┘
+               │
+               ▼
+     ┌───────────────────────┐
+     │ Suspension points     │
+     │ delay(), await(),     │
+     │ withContext(), etc.   │
+     └─────────┬─────────────┘
+               │
+               ▼
+     ┌───────────────────────┐
+     │ Dispatcher chosen by  │
+     │ scope / context       │
+     │ IO / Default / Main   │
+     └─────────┬─────────────┘
+               │
+               ▼
+     ┌───────────────────────┐
+     │ Structured Concurrency│
+     │ coroutineScope()      │
+     │ supervisorScope()     │
+     │ lifecycleScope()      │
+     └─────────┬─────────────┘
+               │
+               ▼
+     ┌───────────────────────┐
+     │ Cancellation & Errors │
+     │ isActive checks       │
+     │ propagate exceptions  │
+     └───────────────────────┘
+
+**Notes:**
+- `suspend` ≠ threads; it’s cooperative and lightweight.
+- Always respect **scope, cancellation, and dispatcher**.
+- Combine with Flow or async/await for concurrency.
+- Lifecycle-aware scopes prevent leaks in Android.
+
+
+## References & Further Reading
+
+### Kotlin Coroutines
+- Official Docs: [https://kotlinlang.org/docs/coroutines-overview.html](https://kotlinlang.org/docs/coroutines-overview.html)
+- Coroutine Basics: [https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html](https://kotlinlang.org/docs/coroutine-context-and-dispatchers.html)
+- Structured Concurrency: [https://kotlinlang.org/docs/structured-concurrency.html](https://kotlinlang.org/docs/structured-concurrency.html)
+- Async & await: [https://kotlinlang.org/docs/async.html](https://kotlinlang.org/docs/async.html)
+
+### kotlinx.coroutines GitHub
+- Repository & samples: [https://github.com/Kotlin/kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+
+### KotlinConf Talks
+- Deep Dive into Coroutines: [https://www.youtube.com/watch?v=_hfR3NLv1n0](https://www.youtube.com/watch?v=_hfR3NLv1n0)
+- Structured Concurrency: [https://www.youtube.com/watch?v=0mTJZ0Dd5iY](https://www.youtube.com/watch?v=0mTJZ0Dd5iY)
+
+### Testing
+- Coroutine Testing: [https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/)
+
+### Android-specific
+- Lifecycle-aware coroutines: [https://developer.android.com/kotlin/coroutines#lifecycles](https://developer.android.com/kotlin/coroutines#lifecycles)
+- ViewModel & LiveData with coroutines: [https://developer.android.com/topic/libraries/architecture/coroutines](https://developer.android.com/topic/libraries/architecture/coroutines)
+
+
 

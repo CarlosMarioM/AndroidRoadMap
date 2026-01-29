@@ -2,6 +2,7 @@
 # Project Config
 agp = "8.6.0"
 kotlin = "2.0.0"
+inject = "1" # Added inject version
 compileSdk = "36"
 minSdk = "24"
 targetSdk = "34"
@@ -18,7 +19,7 @@ lifecycle = "2.8.0" # Unified lifecycle version
 # Compose
 composeBom = "2024.05.00" # Use the BOM to manage Compose versions
 accompanist = "0.34.0"
-compose-material-icons = { group = "androidx.compose.material", name = "material-icons-core" }
+compose-material-icon1s = { group = "androidx.compose.material", name = "material-icons-core" }
 # DI & Tools
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.21"
@@ -30,10 +31,12 @@ material3 = "1.4.0"
 uiToolingPreview = "1.10.1"
 uiTooling = "1.10.1"
 foundationLayout = "1.10.1"
-composeMaterial = "1.5.6" # Matches Kotlin 2.0.0
+composeMaterial = "1.5.6"
+runtime = "1.10.1" # Matches Kotlin 2.0.0
 
 [libraries]
 # --- Android Core ---
+javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "inject" } # Added javax.inject library
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -76,18 +79,22 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 
 # --- Kotlin Coroutines ---
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.13.10" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiToolingPreview" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 androidx-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "composeMaterial" }
 
-
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.0" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library     = { id = "com.android.library" }
 kotlin-android      = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-serialize = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" } # New for Kotlin 2.0
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

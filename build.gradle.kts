@@ -4,4 +4,5 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.hilt) apply false// Plugin de Hilt
     alias(libs.plugins.ksp) apply false // Plugin KSP también a nivel de root
+    alias(libs.plugins.kotlin.kapt) apply false
 }

@@ -13,7 +13,7 @@ fun RoadMapAppTheme(content: @Composable () -> Unit) {
         colorScheme = MaterialTheme.colorScheme.copy(
             primary = TealAccent,
             secondary = OrangeAccent,
-            inversePrimary = OrangeAccent
+            inversePrimary = PurpleAccent
 
         )
     ) {

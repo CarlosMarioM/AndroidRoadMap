@@ -18,12 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androidroadmap.features.content_list.ContentListActivity
 import com.example.androidroadmap.features.examples.ExamplesActivity
-import com.example.androidroadmap.features.index.IndexActivity
+import com.example.androidroadmap.features.roadmap_progress.RoadmapActivity
 import com.example.androidroadmap.ui.theme.BackgroundDark
 import com.example.androidroadmap.ui.theme.TextPrimary
 import com.example.androidroadmap.ui.theme.TextSecondary
-import com.example.androidroadmap.ui.card.CardItem
+import com.example.androidroadmap.ui.CardItem
 
 private data class Route(val index : Int, val title : String, val onClick : () -> Unit)
 
@@ -32,14 +33,22 @@ fun HomeScreen(){
     val context = LocalContext.current
     val routes = listOf(
         Route(0, "Index", onClick = {
-            context.startActivity(Intent(context, IndexActivity::class.java))
+            context.startActivity(
+                Intent(context, ContentListActivity::class.java).apply {
+                    putExtra("level", "PHASES")        // ContentLevel enum as string
+                    putExtra("parentId", "")         // top level has no parent
+                    putExtra("title", "Index")         // title shown in header
+                }
+            )
         }),
         Route(1, "Examples",onClick =  {
             context.startActivity(Intent(context, ExamplesActivity::class.java))
         }),
         Route(2, "Practices",onClick =  {}),
-        Route(3, "Challenges", onClick = {})
-
+        Route(3, "Challenges", onClick = {}),
+        Route(4, "Roadmap Progress", onClick = {
+            context.startActivity(Intent(context, RoadmapActivity::class.java))
+        })
     )
 
     Scaffold {

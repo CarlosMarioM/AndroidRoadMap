@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+
 }
 
 java {
@@ -14,5 +15,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.javax.inject) // Add javax.inject dependency
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation("junit:junit:4.13.2")
+    implementation(project(":models"))
 
 }

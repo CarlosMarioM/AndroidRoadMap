@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp) // Apply the KSP plugin
     alias(libs.plugins.hilt) // Apply the Hilt Android plugin
+    alias(libs.plugins.kotlin.serialize) // Add Kotlin Serialization plugin
 }
 
 android {
@@ -33,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":models"))
     implementation(project(":domain"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -45,4 +47,13 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler) // Use ksp for Hilt compiler
+
+    // Kotlin Serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+    // Testing
+    testImplementation(libs.mockk)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.room.testing)
 }

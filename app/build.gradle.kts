@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialize)
+    alias(libs.plugins.hilt) // Apply Hilt plugin
+    alias(libs.plugins.ksp) // Apply KSP plugin for Hilt compiler
 }
 
 android {
@@ -51,16 +53,33 @@ dependencies {
 
     implementation(project(":topics"))
     implementation(project(":ui"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":models"))
     implementation(libs.androidx.monitor)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.navigation.compose)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.material3)
     debugImplementation(libs.androidx.ui.tooling)
     implementation("io.noties.markwon:core:4.6.2")
     implementation("androidx.compose.material:material-icons-core:1.7.8")
 // or for extended icons:
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // ViewModel for Compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    implementation( "com.github.bumptech.glide:glide:5.0.5")
+    implementation(libs.javax.inject)
 }
