@@ -20,6 +20,7 @@ lifecycle = "2.8.0" # Unified lifecycle version
 composeBom = "2024.05.00" # Use the BOM to manage Compose versions
 accompanist = "0.34.0"
 compose-material-icon1s = { group = "androidx.compose.material", name = "material-icons-core" }
+
 # DI & Tools
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.21"
@@ -33,6 +34,13 @@ uiTooling = "1.10.1"
 foundationLayout = "1.10.1"
 composeMaterial = "1.5.6"
 runtime = "1.10.1" # Matches Kotlin 2.0.0
+
+# Retrofit
+retrofit = "2.9.0"
+okhttpLogging = "4.12.0"
+retrofitKotlinxSerializationConverter = "1.0.0"
+playServicesLocation = "21.3.0"
+cronetApi = "143.7445.0"
 
 [libraries]
 # --- Android Core ---
@@ -89,6 +97,13 @@ androidx-compose-material = { group = "androidx.wear.compose", name = "compose-m
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.6.0" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
+
+# --- Retrofit and Networking ---
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLogging" }
+retrofit-kotlinx-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationConverter" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+cronet-api = { group = "org.chromium.net", name = "cronet-api", version.ref = "cronetApi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

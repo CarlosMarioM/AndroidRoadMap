@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".HiltApplication"
@@ -38,6 +42,18 @@
             android:name=".features.markdown.MarkdownActivity"
             android:exported="true"
             android:label="MarkdownActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
+            android:name=".features.examples.ExamplesActivity"
+            android:exported="false"
+            android:label="ExamplesActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
+            android:name=".features.examples.weather_app.WeatherAppActivity"
+            android:exported="false"
+            android:label="WeatherAppActivity"
             android:theme="@style/Theme.AndroidRoadMap">
         </activity>
         <activity

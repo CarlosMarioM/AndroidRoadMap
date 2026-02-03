@@ -3,8 +3,8 @@ package com.example.androidroadmap.features.content_list
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidroadmap.data.roadmap_progress.utils.TopicsMarkdownUtil
-import com.example.androidroadmap.domain.roadmap_progress.usecases.GetRoadmapPhasesUseCase
+import com.example.androidroadmap.data.topics.utils.TopicsMarkdownUtil
+import com.example.androidroadmap.domain.topics.usecases.GetRoadmapPhasesUseCase
 import com.example.androidroadmap.model.Phase
 import com.example.androidroadmap.model.Subtopic
 import com.example.androidroadmap.model.Topic

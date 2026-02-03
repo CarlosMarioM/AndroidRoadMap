@@ -82,4 +82,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation( "com.github.bumptech.glide:glide:5.0.5")
     implementation(libs.javax.inject)
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

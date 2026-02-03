@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -10,11 +12,27 @@ android {
     namespace = "com.example.androidroadmap.data"
     compileSdk = 36
 
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+        val properties = Properties()
+        val exists = project.rootProject.file("local.properties").exists()
+        if (exists) {
+            properties.load(project.rootProject.file("local.properties").inputStream())
+            print("local.properties found")
+        }
+        val apiKey = properties.getProperty("openweathermap.api_key")
+            ?: error("Missing openweathermap.api_key in local.properties")
 
+        buildConfigField(
+            "String",
+            "OPEN_WEATHER_API_KEY",
+            "\"$apiKey\""
+        )
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -42,6 +60,8 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.play.services.location)
+    implementation(libs.cronet.api)
     ksp(libs.androidx.room.compiler) // Use ksp for Room compiler
 
     // Hilt
@@ -56,4 +76,17 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.room.testing)
+
+    implementation(libs.retrofit)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
+    implementation("com.google.android.gms:play-services-cronet:18.0.1")
+    implementation("com.google.net.cronet:cronet-okhttp:0.1.0") {
+        exclude(group = "org.chromium.net", module = "cronet-common")
+        exclude(group = "org.chromium.net", module = "cronet-api")
+        exclude(group = "org.chromium.net", module = "cronet-shared")
+    }
+
 }

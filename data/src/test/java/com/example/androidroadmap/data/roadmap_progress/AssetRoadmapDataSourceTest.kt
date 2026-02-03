@@ -1,27 +1,28 @@
 package com.example.androidroadmap.data.roadmap_progress
 
-import android.content.res.AssetManager
-import com.example.androidroadmap.data.roadmap_progress.mappers.toDomain
-import com.example.androidroadmap.data.roadmap_progress.remote.JsonPhase
-import com.example.androidroadmap.data.roadmap_progress.remote.JsonTopic
-import com.example.androidroadmap.data.roadmap_progress.remote.RoadmapJson
+import com.example.androidroadmap.data.roadmap_progress.topics.AssetRoadmapDataSource
+import com.example.androidroadmap.data.roadmap_progress.topics.utils.TopicsMarkdownUtil
+import com.example.androidroadmap.model.Phase
+import com.example.androidroadmap.model.Subtopic
+import com.example.androidroadmap.model.Topic
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNull
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Before
 import org.junit.Test
 import java.io.ByteArrayInputStream
 import java.io.InputStream
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import java.sql.Date
 
 class AssetRoadmapDataSourceTest {
 
     @MockK
-    lateinit var mockAssetManager: AssetManager
+    lateinit var mockMarkdownUtil: TopicsMarkdownUtil
 
     private lateinit var json: Json
     private lateinit var dataSource: AssetRoadmapDataSource
@@ -30,50 +31,51 @@ class AssetRoadmapDataSourceTest {
     fun setup() {
         MockKAnnotations.init(this)
         json = Json { ignoreUnknownKeys = true }
-        dataSource = AssetRoadmapDataSource(mockAssetManager, json)
+        dataSource = AssetRoadmapDataSource(mockMarkdownUtil)
     }
 
     private fun createDummyJson(
-        phases: List<JsonPhase> = listOf(
-            JsonPhase(
+        phases: List<Phase> = listOf(
+            Phase(
                 id = "a_phase",
                 title = "Phase A",
                 order = 0,
                 topics = listOf(
-                    JsonTopic(
+                    Topic(
                         id = "a_kotlin_mastery",
                         title = "Kotlin Mastery",
-                        path = "content/a_phase/kotlin.md",
                         subtopics = listOf(
-                            JsonTopic(
+                            Subtopic(
                                 id = "a_kotlin_syntax",
                                 title = "Kotlin Syntax",
-                                path = "content/a_phase/kotlin_syntax.md"
+                                path = "content/a_phase/kotlin_syntax.md",
+                                isCompleted = false,
+                                lastAccessedDate = Date.valueOf("2023-01-01"),
+                                examples = emptyList(),
+                                notes = null
                             )
                         )
                     ),
-                    JsonTopic(
+                    Topic(
                         id = "b_coroutines",
                         title = "Coroutines",
-                        path = "content/a_phase/coroutines.md"
+                        subtopics = listOf(
+                            Subtopic(
+                                id = "bx",
+                                title = "B",
+                                path = "content/a_phase/kotlin_syntax.md",
+                                isCompleted = false,
+                                lastAccessedDate = Date.valueOf("2023-01-01"),
+                                examples = emptyList(),
+                                notes = null
+                            )
+                        )
                     )
                 )
             ),
-            JsonPhase(
-                id = "b_phase",
-                title = "Phase B",
-                order = 1,
-                topics = listOf(
-                    JsonTopic(
-                        id = "a_compose",
-                        title = "Jetpack Compose",
-                        path = "content/b_phase/compose.md"
-                    )
-                )
-            )
         )
     ): String {
-        return Json.encodeToString(RoadmapJson.serializer(), RoadmapJson(domain = "kotlin", phases = phases))
+        return Json.encodeToString(phases)
     }
 
     @Test
@@ -81,7 +83,7 @@ class AssetRoadmapDataSourceTest {
         val dummyJsonString = createDummyJson()
         val inputStream: InputStream = ByteArrayInputStream(dummyJsonString.toByteArray())
 
-        every { mockAssetManager.open("topics_list.json") } returns inputStream
+        every { mockMarkdownUtil.open("topics_list.json") } returns inputStream
 
         val phases = dataSource.getPhases()
 
@@ -92,15 +94,18 @@ class AssetRoadmapDataSourceTest {
 
         assertEquals("a_kotlin_mastery", phases[0].topics[0].id)
         assertEquals("Kotlin Mastery", phases[0].topics[0].title)
-        assertEquals("content/a_phase/kotlin.md", phases[0].topics[0].contentPath)
+        assertEquals("content/a_phase/kotlin.md", phases[0].topics[0].subtopics[0].path)
         assertEquals(1, phases[0].topics[0].subtopics.size)
         assertEquals("a_kotlin_syntax", phases[0].topics[0].subtopics[0].id)
         assertEquals("Kotlin Syntax", phases[0].topics[0].subtopics[0].title)
-        assertEquals("content/a_phase/kotlin_syntax.md", phases[0].topics[0].subtopics[0].contentPath)
+        assertEquals(
+            "content/a_phase/kotlin_syntax.md",
+            phases[0].topics[0].subtopics[0].path
+        )
 
         assertEquals("b_coroutines", phases[0].topics[1].id)
         assertEquals("Coroutines", phases[0].topics[1].title)
-        assertEquals("content/a_phase/coroutines.md", phases[0].topics[1].contentPath)
+        assertEquals("content/a_phase/coroutines.md", phases[0].topics[1].subtopics[0].path)
     }
 
     @Test
@@ -118,7 +123,7 @@ class AssetRoadmapDataSourceTest {
         // First call getPhases to populate the internal topic map
         dataSource.getPhases()
 
-        val content = dataSource.getTopicContent("a_kotlin_mastery")
+        val content = dataSource.getSubtopicContent("a_kotlin_mastery")
         assertEquals(expectedContent, content)
     }
 
@@ -126,27 +131,38 @@ class AssetRoadmapDataSourceTest {
     fun `getTopicContent returns null if content path is null`() = runTest {
         val dummyJsonString = createDummyJson(
             phases = listOf(
-                JsonPhase(
+                Phase(
                     id = "a_phase",
                     title = "Phase A",
                     order = 0,
                     topics = listOf(
-                        JsonTopic(
+                        Topic(
                             id = "topic_without_path",
                             title = "Topic Without Path",
-                            path = null // Path is null
-                        )
+                            subtopics = listOf(
+                                Subtopic(
+                                    id = "a_kotlin_syntax",
+                                    title = "Kotlin Syntax",
+                                    path = "",
+                                    isCompleted = false,
+                                    lastAccessedDate = Date.valueOf("2023-01-01"),
+                                    examples = emptyList(),
+                                    notes = null
+                                )
+                            )
+                        ),
                     )
                 )
             )
         )
+
         val inputStreamJson: InputStream = ByteArrayInputStream(dummyJsonString.toByteArray())
 
         every { mockAssetManager.open("topics_list.json") } returns inputStreamJson
 
         dataSource.getPhases()
 
-        val content = dataSource.getTopicContent("topic_without_path")
+        val content = dataSource.getSubtopicContent("topic_without_path")
         assertNull(content)
     }
 
@@ -159,7 +175,7 @@ class AssetRoadmapDataSourceTest {
 
         dataSource.getPhases()
 
-        val content = dataSource.getTopicContent("non_existent_topic")
+        val content = dataSource.getSubtopicContent("non_existent_topic")
         assertNull(content)
     }
 
@@ -174,7 +190,7 @@ class AssetRoadmapDataSourceTest {
 
         dataSource.getPhases() // Make sure phases are loaded
 
-        val content = dataSource.getTopicContent("a_kotlin_mastery")
+        val content = dataSource.getSubtopicContent("a_kotlin_mastery")
         assertNull(content)
     }
 }

@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.androidroadmap.data.roadmap_progress.topics.local.RoadmapDatabase
+import com.example.androidroadmap.data.roadmap_progress.topics.local.TopicProgressDao
+import com.example.androidroadmap.data.roadmap_progress.topics.local.TopicProgressEntity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -13,7 +16,6 @@ import org.junit.runner.RunWith
 import java.io.IOException
 import java.util.Date
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue

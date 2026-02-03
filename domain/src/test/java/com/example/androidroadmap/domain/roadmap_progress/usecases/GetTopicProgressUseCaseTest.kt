@@ -1,7 +1,8 @@
 package com.example.androidroadmap.domain.roadmap_progress.usecases
 
 import com.example.androidroadmap.domain.roadmap_progress.FakeRoadmapRepository
-import com.example.androidroadmap.domain.roadmap_progress.TopicProgress
+import com.example.androidroadmap.domain.topics.TopicProgress
+import com.example.androidroadmap.domain.topics.usecases.GetTopicProgressUseCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
