@@ -1,4 +1,4 @@
-package com.example.androidroadmap.ui.theme
+package com.example.androidroadmap.ui
 
 import androidx.compose.ui.graphics.Color
 

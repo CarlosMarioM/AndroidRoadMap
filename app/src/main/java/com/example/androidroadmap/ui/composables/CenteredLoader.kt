@@ -1,4 +1,4 @@
-package com.example.androidroadmap.ui
+package com.example.androidroadmap.ui.composables
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

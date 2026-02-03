@@ -52,7 +52,6 @@ dependencies {
     implementation(libs.accompanist.themeadapter)
 
     implementation(project(":topics"))
-    implementation(project(":ui"))
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":models"))

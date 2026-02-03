@@ -17,20 +17,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.res.ResourcesCompat
-import com.example.androidroadmap.R
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.core.MarkwonTheme
-import org.commonmark.node.Text
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androidroadmap.features.content_list.ContentListViewModel
 import com.example.androidroadmap.features.markdown.MarkdownUiState
 import com.example.androidroadmap.features.markdown.MarkdownViewModel
-import com.example.androidroadmap.ui.CenteredError
-import com.example.androidroadmap.ui.CenteredLoader
-import com.example.androidroadmap.ui.theme.BackgroundDark
+import com.example.androidroadmap.ui.composables.CenteredError
+import com.example.androidroadmap.ui.composables.CenteredLoader
+import com.example.androidroadmap.ui.BackgroundDark
 
 @Composable
 fun MarkdownScreen(

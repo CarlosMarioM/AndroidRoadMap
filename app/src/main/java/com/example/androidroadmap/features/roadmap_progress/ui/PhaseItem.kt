@@ -1,6 +1,5 @@
 package com.example.androidroadmap.features.roadmap_progress.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,8 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.androidroadmap.model.Phase
-import com.example.androidroadmap.ui.theme.CardSurface
-import com.example.androidroadmap.ui.theme.TextPrimary
+import com.example.androidroadmap.ui.CardSurface
+import com.example.androidroadmap.ui.TextPrimary
 
 @Composable
 fun PhaseItem(

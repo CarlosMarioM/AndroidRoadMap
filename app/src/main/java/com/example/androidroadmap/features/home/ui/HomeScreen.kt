@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.sp
 import com.example.androidroadmap.features.content_list.ContentListActivity
 import com.example.androidroadmap.features.examples.ExamplesActivity
 import com.example.androidroadmap.features.roadmap_progress.RoadmapActivity
-import com.example.androidroadmap.ui.theme.BackgroundDark
-import com.example.androidroadmap.ui.theme.TextPrimary
-import com.example.androidroadmap.ui.theme.TextSecondary
-import com.example.androidroadmap.ui.CardItem
+import com.example.androidroadmap.ui.BackgroundDark
+import com.example.androidroadmap.ui.TextPrimary
+import com.example.androidroadmap.ui.TextSecondary
+import com.example.androidroadmap.ui.composables.CardItem
 
 private data class Route(val index : Int, val title : String, val onClick : () -> Unit)
 

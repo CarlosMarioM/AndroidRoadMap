@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.androidroadmap.features.examples.weather_app.WeatherAppActivity
-import com.example.androidroadmap.ui.CardItem
-import com.example.androidroadmap.ui.Header
-import com.example.androidroadmap.ui.theme.BackgroundDark
+import com.example.androidroadmap.ui.composables.CardItem
+import com.example.androidroadmap.ui.composables.Header
+import com.example.androidroadmap.ui.BackgroundDark
 
 @Composable
 fun ExamplesScreen() {

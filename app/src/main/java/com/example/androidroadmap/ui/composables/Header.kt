@@ -1,4 +1,4 @@
-package com.example.androidroadmap.ui
+package com.example.androidroadmap.ui.composables
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -8,8 +8,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androidroadmap.ui.theme.TextPrimary
-import com.example.androidroadmap.ui.theme.TextSecondary
+import com.example.androidroadmap.ui.TextPrimary
+import com.example.androidroadmap.ui.TextSecondary
 
 @Composable
 fun Header(title: String, subtitle: String) {

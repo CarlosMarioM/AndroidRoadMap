@@ -22,9 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidroadmap.features.home.HomeActivity
-import com.example.androidroadmap.ui.theme.BackgroundDark
-import com.example.androidroadmap.ui.theme.TextPrimary
-import com.example.androidroadmap.ui.theme.TextSecondary
+import com.example.androidroadmap.ui.BackgroundDark
+import com.example.androidroadmap.ui.TextPrimary
+import com.example.androidroadmap.ui.TextSecondary
 
 
 @Composable
