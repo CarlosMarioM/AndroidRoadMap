@@ -1,7 +1,7 @@
 package com.example.androidroadmap.data.di
 
 import com.example.androidroadmap.data.weather.remote.repository.WeatherRepositoryImpl
-import com.example.androidroadmap.domain.weather.repositories.WeatherRepository
+import com.example.androidroadmap.domain.weather.repository.WeatherRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

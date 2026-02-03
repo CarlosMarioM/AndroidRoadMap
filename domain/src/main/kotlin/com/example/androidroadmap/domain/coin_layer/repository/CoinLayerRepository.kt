@@ -1,4 +1,5 @@
 package com.example.androidroadmap.domain.coin_layer.repository
 
-class CoinLayerRepository {
+interface CoinLayerRepository {
+    suspend fun getLive(callback: String) : Result<String>
 }

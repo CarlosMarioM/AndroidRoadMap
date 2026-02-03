@@ -1,4 +1,4 @@
-package com.example.androidroadmap.domain.weather.repositories
+package com.example.androidroadmap.domain.weather.repository
 
 import com.example.androidroadmap.model.weather.CurrentWeatherApiRes
 

@@ -15,7 +15,6 @@ The project is organized into a **multi-module structure**, adhering to the prin
 *   **/data:** The **data layer module**. It contains concrete implementations of the repositories defined in the `domain` layer. This module is responsible for fetching data from various sources (e.g., Room database, network APIs).
 *   **/domain:** The **domain layer module**. This is the **core of the application**, containing the business logic. It consists of pure Kotlin code and defines the repository interfaces that the `data` layer implements.
 *   **/models:** This module contains the **data models** (POJOs/data classes) that are shared across different layers of the application.
-*   **/ui:** A module for **shared UI components** and themes.
 *   **/topics:** This module contains the **content for the roadmap**, organized by phase and topic.
 
 ## 🚀 Getting Started
@@ -24,6 +23,18 @@ To build and run this project, you'll need:
 
 *   **Android Studio** (latest stable version recommended)
 *   **Java Development Kit (JDK) 17** or higher
+
+### API Keys
+This project uses the OpenWeatherMap API to fetch weather data for the weather app example. To use this feature, you must provide your own API key.
+
+1.  Create a file named `local.properties` in the root directory of the project.
+2.  Add your API key to the `local.properties` file like this:
+    ```
+    WEATHER_API_KEY="YOUR_API_KEY"
+    coinlayer.api_key="YOUR_API_KEY"
+    ```
+    
+> Note: The `local.properties` file is included in the `.gitignore` file, so your API key will not be committed to version control.
 
 ### Installation
 

@@ -1,6 +1,6 @@
 package com.example.androidroadmap.data.weather.remote.repository
 
-import com.example.androidroadmap.domain.weather.repositories.WeatherRepository
+import com.example.androidroadmap.domain.weather.repository.WeatherRepository
 import com.example.androidroadmap.data.weather.remote.WeatherApiService
 import com.example.androidroadmap.model.weather.CurrentWeatherApiRes
 import javax.inject.Inject

@@ -77,7 +77,10 @@ object WeatherNetworkModule {
     }
 
     @Provides
-    fun provideOpenWeatherApiKey(): String {
-        return BuildConfig.OPEN_WEATHER_API_KEY
+    fun provideOpenWeatherApiKey(): WeatherApiKey {
+        return WeatherApiKey(BuildConfig.OPEN_WEATHER_API_KEY)
     }
+    @Singleton
+    @JvmInline
+    value class WeatherApiKey(val value: String)
 }

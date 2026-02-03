@@ -24,13 +24,19 @@ android {
             properties.load(project.rootProject.file("local.properties").inputStream())
             print("local.properties found")
         }
-        val apiKey = properties.getProperty("openweathermap.api_key")
+        val coinlayerApiKey = properties.getProperty("coinlayer.api_key")
+        val openWeatherApiKey = properties.getProperty("openweathermap.api_key")
             ?: error("Missing openweathermap.api_key in local.properties")
 
         buildConfigField(
             "String",
             "OPEN_WEATHER_API_KEY",
-            "\"$apiKey\""
+            "\"$openWeatherApiKey\""
+        )
+        buildConfigField(
+            "String",
+            "COIN_LAYER_API_KEY",
+            "\"$coinlayerApiKey\""
         )
     }
     buildTypes {
