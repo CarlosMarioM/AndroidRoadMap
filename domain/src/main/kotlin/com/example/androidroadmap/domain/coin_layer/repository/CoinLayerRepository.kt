@@ -1,5 +1,7 @@
 package com.example.androidroadmap.domain.coin_layer.repository
 
+import kotlinx.coroutines.flow.Flow
+
 interface CoinLayerRepository {
-    suspend fun getLive(callback: String) : Result<String>
+    fun getLive(callback: String?): Flow<Result<String>>
 }
