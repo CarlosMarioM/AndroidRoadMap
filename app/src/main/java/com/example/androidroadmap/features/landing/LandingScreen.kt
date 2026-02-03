@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidroadmap.features.home.HomeActivity
@@ -26,21 +27,22 @@ import com.example.androidroadmap.ui.BackgroundDark
 import com.example.androidroadmap.ui.TextPrimary
 import com.example.androidroadmap.ui.TextSecondary
 
-
+@Preview
+@Composable
+fun LandingScreenPreview() = LandingScreen("AndroidRoadMap.kt")
 @Composable
 fun LandingScreen(
     appName: String,
 ) {
     val context = LocalContext.current
-
-    Scaffold { innerPadding ->
+    Scaffold(topBar = {}) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundDark) // Dark Background
                 .padding(16.dp)
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.SpaceAround
+            verticalArrangement = Arrangement.SpaceAround,
         ) {
 
             // Header
@@ -94,7 +96,7 @@ fun LandingScreen(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Thin,
                     fontFamily = FontFamily.Monospace
-                    )
+                )
             }
         }
     }

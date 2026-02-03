@@ -43,8 +43,6 @@ dependencies {
 
     implementation(libs.androidx.activity.compose)
 
-    implementation(project(":ui"))
-
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.appcompat)
