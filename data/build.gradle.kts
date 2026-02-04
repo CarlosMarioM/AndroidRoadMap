@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp) // Apply the KSP plugin
     alias(libs.plugins.hilt) // Apply the Hilt Android plugin
     alias(libs.plugins.kotlin.serialize) // Add Kotlin Serialization plugin
+    id("org.openapi.generator") version "7.19.0"
 }
 
 android {
@@ -26,7 +27,8 @@ android {
         }
         val coinlayerApiKey = properties.getProperty("coinlayer.api_key")
         val openWeatherApiKey = properties.getProperty("openweathermap.api_key")
-            ?: error("Missing openweathermap.api_key in local.properties")
+        val massiveApiKey = properties.getProperty("massive.api_key")
+
 
         buildConfigField(
             "String",
@@ -37,6 +39,11 @@ android {
             "String",
             "COIN_LAYER_API_KEY",
             "\"$coinlayerApiKey\""
+        )
+        buildConfigField(
+            "String",
+            "MASSIVE_API_KEY",
+            "\"$massiveApiKey\""
         )
     }
     buildTypes {
@@ -58,7 +65,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":models"))
     implementation(project(":domain"))
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -94,5 +100,4 @@ dependencies {
         exclude(group = "org.chromium.net", module = "cronet-api")
         exclude(group = "org.chromium.net", module = "cronet-shared")
     }
-
 }

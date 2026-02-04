@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.example.androidroadmap.data.topics.local.RoadmapDatabase
 import com.example.androidroadmap.data.topics.local.TopicProgressDao
 import com.example.androidroadmap.data.topics.utils.TopicsMarkdownUtil
-import com.example.androidroadmap.domain.topics.RoadmapDataSource
-import com.example.androidroadmap.domain.topics.repository.RoadmapRepository
+import com.example.androidroadmap.domain.repository.topics.RoadmapDataSource
+import com.example.androidroadmap.domain.repository.topics.repository.RoadmapRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androidroadmap.features.examples.weather_app.WeatherUiState
 import com.example.androidroadmap.features.examples.weather_app.WeatherViewModel
-import com.example.androidroadmap.model.weather.SysResponse
+import com.example.androidroadmap.domain.model.weather.SysResponse
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -69,7 +69,6 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Location Header
             Text(
                 text = when (uiState) {
                     is WeatherUiState.Success -> (uiState as WeatherUiState.Success).data.name
@@ -90,7 +89,6 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
 
             Spacer(modifier = Modifier.height(60.dp))
 
-            // Main Temperature Display
             when (uiState) {
                 is WeatherUiState.Success ->
                     Text(

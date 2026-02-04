@@ -54,7 +54,6 @@ dependencies {
     implementation(project(":topics"))
     implementation(project(":domain"))
     implementation(project(":data"))
-    implementation(project(":models"))
     implementation(libs.androidx.monitor)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.appcompat)

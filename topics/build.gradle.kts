@@ -40,9 +40,7 @@ android {
 dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(platform(libs.androidx.compose.bom))
-
     implementation(libs.androidx.activity.compose)
-
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     implementation(libs.androidx.appcompat)
@@ -52,5 +50,4 @@ dependencies {
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.compose.material)
     debugImplementation(libs.androidx.compose.ui.tooling)
-
 }

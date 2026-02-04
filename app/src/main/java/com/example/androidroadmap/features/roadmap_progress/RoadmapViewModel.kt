@@ -2,11 +2,11 @@ package com.example.androidroadmap.features.roadmap_progress
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidroadmap.domain.topics.TopicProgress
-import com.example.androidroadmap.domain.topics.usecases.GetAllTopicProgressUseCase
-import com.example.androidroadmap.domain.topics.usecases.GetRoadmapPhasesUseCase
-import com.example.androidroadmap.domain.topics.usecases.UpdateTopicProgressUseCase
-import com.example.androidroadmap.model.Phase
+import com.example.androidroadmap.domain.repository.topics.TopicProgress
+import com.example.androidroadmap.domain.repository.topics.usecases.GetAllTopicProgressUseCase
+import com.example.androidroadmap.domain.repository.topics.usecases.GetRoadmapPhasesUseCase
+import com.example.androidroadmap.domain.repository.topics.usecases.UpdateTopicProgressUseCase
+import com.example.androidroadmap.domain.model.topic.Phase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

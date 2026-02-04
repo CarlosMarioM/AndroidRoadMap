@@ -2,8 +2,9 @@ package com.example.androidroadmap.data.topics.utils
 
 import android.content.Context
 import android.util.Log
-import com.example.androidroadmap.model.Subtopic
-import com.example.androidroadmap.model.TopicsRoot
+import com.example.androidroadmap.domain.model.topic.Subtopic
+import com.example.androidroadmap.domain.model.topic.TopicsRoot
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 import javax.inject.Singleton

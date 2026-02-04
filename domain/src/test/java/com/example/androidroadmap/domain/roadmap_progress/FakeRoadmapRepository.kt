@@ -1,7 +1,7 @@
 package com.example.androidroadmap.domain.roadmap_progress
 
-import com.example.androidroadmap.domain.topics.TopicProgress
-import com.example.androidroadmap.domain.topics.repository.RoadmapRepository
+import com.example.androidroadmap.domain.repository.topics.TopicProgress
+import com.example.androidroadmap.domain.repository.topics.repository.RoadmapRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map

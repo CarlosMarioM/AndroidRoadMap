@@ -3,10 +3,10 @@ package com.example.androidroadmap.features.markdown
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidroadmap.domain.topics.TopicProgress
-import com.example.androidroadmap.domain.topics.usecases.GetTopicContentUseCase
-import com.example.androidroadmap.domain.topics.usecases.GetTopicProgressUseCase
-import com.example.androidroadmap.domain.topics.usecases.UpdateTopicProgressUseCase
+import com.example.androidroadmap.domain.repository.topics.TopicProgress
+import com.example.androidroadmap.domain.repository.topics.usecases.GetTopicContentUseCase
+import com.example.androidroadmap.domain.repository.topics.usecases.GetTopicProgressUseCase
+import com.example.androidroadmap.domain.repository.topics.usecases.UpdateTopicProgressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

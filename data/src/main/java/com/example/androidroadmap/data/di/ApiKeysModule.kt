@@ -9,9 +9,9 @@ import javax.inject.Singleton
 
 @Singleton
 data class CoinLayerApiKey(val value:String )
-
 @Singleton
 data class WeatherApiKey(val value: String)
+data class MassiveApiKey(val value: String)
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,5 +27,11 @@ object ApiKeysModule {
     @Singleton
     fun provideWeatherApiKey(): WeatherApiKey {
         return WeatherApiKey(BuildConfig.OPEN_WEATHER_API_KEY)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMassiveApiKey(): MassiveApiKey {
+        return MassiveApiKey(BuildConfig.MASSIVE_API_KEY)
     }
 }

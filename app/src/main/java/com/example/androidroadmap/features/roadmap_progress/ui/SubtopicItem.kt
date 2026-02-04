@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
-import com.example.androidroadmap.model.Subtopic
+import com.example.androidroadmap.domain.model.topic.Subtopic
 import com.example.androidroadmap.ui.OrangeAccent
 import com.example.androidroadmap.ui.TextPrimary
 import com.example.androidroadmap.ui.TextSecondary

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.androidroadmap.features.examples.finance_simulator.FinanceSimulatorActivity
 import com.example.androidroadmap.features.examples.weather_app.WeatherAppActivity
 import com.example.androidroadmap.ui.composables.CardItem
 import com.example.androidroadmap.ui.composables.Header
@@ -38,6 +39,13 @@ fun ExamplesScreen() {
 
             CardItem(0, "WeatherApp", onClick = {
                 val intent = Intent(context, WeatherAppActivity::class.java)
+                context.startActivity(intent)
+            })
+            
+            Spacer(modifier = Modifier.padding(vertical = 10.dp))
+
+            CardItem(1, "FinanceSimulator", onClick = {
+                val intent = Intent(context, FinanceSimulatorActivity::class.java)
                 context.startActivity(intent)
             })
         }

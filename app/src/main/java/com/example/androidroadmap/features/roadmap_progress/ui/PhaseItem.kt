@@ -23,7 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.androidroadmap.model.Phase
+import com.example.androidroadmap.domain.model.topic.Phase
 import com.example.androidroadmap.ui.CardSurface
 import com.example.androidroadmap.ui.TextPrimary
 

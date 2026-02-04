@@ -2,7 +2,7 @@ package com.example.androidroadmap.data.di
 
 import android.content.Context
 import com.example.androidroadmap.data.location.local.LocationRepositoryImpl
-import com.example.androidroadmap.domain.location.repository.LocationRepository
+import com.example.androidroadmap.domain.repository.location.repository.LocationRepository
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.Module

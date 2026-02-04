@@ -1,6 +1,6 @@
 package com.example.androidroadmap.data.weather.remote
 
-import com.example.androidroadmap.model.weather.CurrentWeatherApiRes
+import com.example.androidroadmap.domain.model.weather.CurrentWeatherApiRes
 import retrofit2.http.GET
 import retrofit2.http.Query
 interface WeatherApiService {

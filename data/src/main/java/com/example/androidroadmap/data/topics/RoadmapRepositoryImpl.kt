@@ -2,10 +2,10 @@ package com.example.androidroadmap.data.topics
 
 import com.example.androidroadmap.data.topics.local.TopicProgressDao
 import com.example.androidroadmap.data.topics.local.TopicProgressEntity
-import com.example.androidroadmap.domain.topics.RoadmapDataSource
-import com.example.androidroadmap.domain.topics.repository.RoadmapRepository
-import com.example.androidroadmap.domain.topics.TopicProgress
-import com.example.androidroadmap.model.Phase
+import com.example.androidroadmap.domain.repository.topics.RoadmapDataSource
+import com.example.androidroadmap.domain.repository.topics.repository.RoadmapRepository
+import com.example.androidroadmap.domain.repository.topics.TopicProgress
+import com.example.androidroadmap.domain.model.topic.Phase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

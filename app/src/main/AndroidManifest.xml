@@ -57,6 +57,18 @@
             android:theme="@style/Theme.AndroidRoadMap">
         </activity>
         <activity
+            android:name=".features.examples.finance_simulator.FinanceSimulatorActivity"
+            android:exported="false"
+            android:label="FinanceSimulatorActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
+            android:name=".features.examples.finance_simulator.ticker.TickerActivity"
+            android:exported="false"
+            android:label="TickerActivity"
+            android:theme="@style/Theme.AndroidRoadMap">
+        </activity>
+        <activity
             android:name=".features.roadmap_progress.RoadmapActivity"
             android:exported="false"
             android:label="RoadmapActivity"

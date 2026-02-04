@@ -2,8 +2,8 @@ package com.example.androidroadmap.data.location.local
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
-import com.example.androidroadmap.domain.location.repository.LocationRepository
-import com.example.androidroadmap.model.weather.Location
+import com.example.androidroadmap.domain.repository.location.repository.LocationRepository
+import com.example.androidroadmap.domain.model.weather.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.tasks.await

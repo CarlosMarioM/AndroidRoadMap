@@ -3,7 +3,7 @@ package com.example.androidroadmap.domain.roadmap_progress.usecases
 import com.example.androidroadmap.domain.roadmap_progress.FakeRoadmapRepository
 import com.example.androidroadmap.domain.roadmap_progress.Phase
 import com.example.androidroadmap.domain.roadmap_progress.Topic
-import com.example.androidroadmap.domain.topics.usecases.GetRoadmapPhasesUseCase
+import com.example.androidroadmap.domain.repository.topics.usecases.GetRoadmapPhasesUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test

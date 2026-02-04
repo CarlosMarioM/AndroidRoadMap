@@ -3,11 +3,13 @@ package com.example.androidroadmap.features.examples.weather_app
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.example.androidroadmap.features.examples.weather_app.ui.WeatherScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +25,7 @@ class WeatherAppActivity : ComponentActivity() {
             viewModel.onLocationPermissionResult(granted)
         }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestLocationIfNeeded()
@@ -33,8 +36,7 @@ class WeatherAppActivity : ComponentActivity() {
 
     private fun requestLocationIfNeeded() {
         if (!isLocationEnabled()) {
-            // Prompt user to enable GPS / Location Services
-            showEnableLocationDialog() // implement your UI to ask user
+            showEnableLocationDialog()
             requestLocationIfNeeded()
         }
 

@@ -1,9 +1,9 @@
 package com.example.androidroadmap.data.topics
 
 import com.example.androidroadmap.data.topics.utils.TopicsMarkdownUtil
-import com.example.androidroadmap.domain.topics.RoadmapDataSource
-import com.example.androidroadmap.model.Phase
-import com.example.androidroadmap.model.Subtopic
+import com.example.androidroadmap.domain.repository.topics.RoadmapDataSource
+import com.example.androidroadmap.domain.model.topic.Phase
+import com.example.androidroadmap.domain.model.topic.Subtopic
 import javax.inject.Inject
 import javax.inject.Singleton
 

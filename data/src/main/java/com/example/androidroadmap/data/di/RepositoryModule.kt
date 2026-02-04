@@ -1,9 +1,9 @@
 package com.example.androidroadmap.data.di
 
-import com.example.androidroadmap.data.coin_layer.repository.CoinLayerRepositoryImpl
+import com.example.androidroadmap.data.finance.repository.FinanceRepositoryImpl
 import com.example.androidroadmap.data.weather.remote.repository.WeatherRepositoryImpl
-import com.example.androidroadmap.domain.coin_layer.repository.CoinLayerRepository
-import com.example.androidroadmap.domain.weather.repository.WeatherRepository
+import com.example.androidroadmap.domain.repository.finance.repository.FinanceRepository
+import com.example.androidroadmap.domain.repository.weather.repository.WeatherRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,7 +22,7 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindCoinLayerRepository(
-        coinLayerRepositoryImpl: CoinLayerRepositoryImpl
-    ): CoinLayerRepository
+    abstract fun bindFinanceRepository(
+        financeRepositoryImpl: FinanceRepositoryImpl
+    ): FinanceRepository
 }

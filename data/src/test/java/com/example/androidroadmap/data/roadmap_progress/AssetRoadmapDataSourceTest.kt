@@ -2,9 +2,9 @@ package com.example.androidroadmap.data.roadmap_progress
 
 import com.example.androidroadmap.data.roadmap_progress.topics.AssetRoadmapDataSource
 import com.example.androidroadmap.data.roadmap_progress.topics.utils.TopicsMarkdownUtil
-import com.example.androidroadmap.model.Phase
-import com.example.androidroadmap.model.Subtopic
-import com.example.androidroadmap.model.Topic
+import com.example.androidroadmap.domain.model.topic.Phase
+import com.example.androidroadmap.domain.model.topic.Subtopic
+import com.example.androidroadmap.domain.model.topic.Topic
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK

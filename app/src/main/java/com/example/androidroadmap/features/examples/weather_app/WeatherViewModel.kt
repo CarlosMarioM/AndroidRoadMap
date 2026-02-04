@@ -2,10 +2,10 @@ package com.example.androidroadmap.features.examples.weather_app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidroadmap.domain.location.usecases.GetCurrentLocationUseCase
-import com.example.androidroadmap.domain.weather.usecases.GetCurrentWeatherUseCase
-import com.example.androidroadmap.model.weather.CurrentWeatherApiRes
-import com.example.androidroadmap.model.weather.Location
+import com.example.androidroadmap.domain.repository.location.usecases.GetCurrentLocationUseCase
+import com.example.androidroadmap.domain.repository.weather.usecases.GetCurrentWeatherUseCase
+import com.example.androidroadmap.domain.model.weather.CurrentWeatherApiRes
+import com.example.androidroadmap.domain.model.weather.Location
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

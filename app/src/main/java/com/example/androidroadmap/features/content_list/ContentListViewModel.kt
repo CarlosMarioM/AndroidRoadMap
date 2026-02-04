@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidroadmap.data.topics.utils.TopicsMarkdownUtil
-import com.example.androidroadmap.domain.topics.usecases.GetRoadmapPhasesUseCase
-import com.example.androidroadmap.model.Phase
-import com.example.androidroadmap.model.Subtopic
-import com.example.androidroadmap.model.Topic
+import com.example.androidroadmap.domain.repository.topics.usecases.GetRoadmapPhasesUseCase
+import com.example.androidroadmap.domain.model.topic.Phase
+import com.example.androidroadmap.domain.model.topic.Subtopic
+import com.example.androidroadmap.domain.model.topic.Topic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
